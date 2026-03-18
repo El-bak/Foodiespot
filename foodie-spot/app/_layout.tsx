@@ -16,6 +16,7 @@ import { ToastProvider } from '@/components/toast-provider';
 import { useOffline } from '@/hooks/use-offline';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
+import { ThemeProvider as AppThemeProvider } from '@/contexts/theme-context'; 
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -116,7 +117,9 @@ export default function RootLayout() {
         <ToastProvider>
         <AuthProvider>
           <CartProvider>
-          <RootLayoutContent />
+            <AppThemeProvider>
+              <RootLayoutContent />
+            </AppThemeProvider>
           </CartProvider>
         </AuthProvider>
         </ToastProvider>

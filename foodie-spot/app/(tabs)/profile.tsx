@@ -10,6 +10,7 @@ import type { User } from '@/types';
 import log from '@/services/logger';
 import  { useToast } from '@/components/toast-provider';
 import { useAuth } from '@/contexts/auth-context';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function ProfileScreen() {
 
@@ -17,17 +18,20 @@ export default function ProfileScreen() {
   const [user, setUser] = useState<User | null>(null);
   const { logout } = useAuth();
   const [orderCount, setOrderCount] = useState(0);
+  const { themeMode, setThemeMode, colors, isDark } = useTheme();
 
 
   useEffect(() => {
      loadUser();
-     // récupérer le vrai nombre de commandes
+
+     // Cela permet de récupérer le vrai nombre de commandes
      orderAPI.getOrders().then(orders => setOrderCount(orders.length));
   }, []);
 
   const loadUser = async () => {
     const userData = await userAPI.getCurrentUser();
     log.info('Loaded user data:', toast, userData);
+    
     // ensure favoriteRestaurants is always an array
     setUser(userData ? { ...userData, favoriteRestaurants: userData.favoriteRestaurants || [] } : null);
   };
@@ -56,6 +60,7 @@ export default function ProfileScreen() {
       }
     }
   };
+  
 
   const handleLogout = () => {
     Alert.alert('Déconnexion', 'Êtes-vous sûr de vouloir vous déconnecter ?', [
@@ -81,7 +86,7 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
       <ScrollView>
         <View style={styles.header}>
           <View style={styles.profileContainer}>
@@ -165,6 +170,39 @@ export default function ProfileScreen() {
             <LogOut size={20} color="#FF6B35" />
             <Text style={[styles.menuText, styles.logoutText]}>Déconnexion</Text>
           </TouchableOpacity>
+
+          <View style={styles.menuItem}>
+              <Text style={styles.menuText}>Apparence</Text>
+              <View style={styles.menuRight}>
+
+                  <TouchableOpacity
+                      style={[styles.themeBtn, themeMode === 'light' && styles.themeBtnActive]}
+                      onPress={() => setThemeMode('light')}
+                  >
+                      <Text style={styles.themeBtnText}>☀️</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                      style={[styles.themeBtn, themeMode === 'system' && styles.themeBtnActive]}
+                      onPress={() => setThemeMode('system')}
+                  >
+                      <Text style={styles.themeBtnText}>📱</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                      style={[styles.themeBtn, themeMode === 'dark' && styles.themeBtnActive]}
+                      onPress={() => setThemeMode('dark')}
+                  >
+                      <Text style={styles.themeBtnText}>🌙</Text>
+                  </TouchableOpacity>
+              </View>
+           </View>
+
+           <TouchableOpacity 
+               style={[styles.menuItem, styles.logoutItem]} 
+               onPress={handleLogout}>
+           </TouchableOpacity>
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -236,6 +274,17 @@ const styles = StyleSheet.create({
   phone: {
     fontSize: 12,
     color: '#999',
+  },
+  themeBtn: {
+      padding: 6,
+      borderRadius: 8,
+      backgroundColor: '#f5f5f5',
+  },
+  themeBtnActive: {
+      backgroundColor: '#FFE5DB',
+  },
+  themeBtnText: {
+      fontSize: 16,
   },
   stats: {
     flexDirection: 'row',
