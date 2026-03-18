@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
-import { ArrowLeft, Star } from "lucide-react-native";
+import { ArrowLeft, Star, Camera } from "lucide-react-native";
+import * as ImagePicker from 'expo-image-picker';
 import api from "@/services/api";
 
 export default function ReviewScreen() {
@@ -14,10 +15,42 @@ export default function ReviewScreen() {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
+    const [photos, setPhotos] = useState<string[]>([]);
+
+  
+    const [qualityRating, setQualityRating] = useState(0);
+    const [speedRating, setSpeedRating] = useState(0);
+    const [presentationRating, setPresentationRating] = useState(0);
+
+    const handleAddPhoto = async () => {
+
+        
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            Alert.alert('Autorisation requise', "Nous avons besoin d'accéder à vos photos pour fonctionner");
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            quality: 0.8,
+        });
+
+        if (!result.canceled) {
+
+            // La limite ici est de 3 photos
+            if (photos.length >= 3) {
+                Alert.alert('Maximum atteint', 'Vous pouvez ajouter maximum 3 photos');
+                return;
+            }
+            setPhotos([...photos, result.assets[0].uri]);
+        }
+    };
 
     const handleSubmit = async () => {
         if (rating === 0) {
-            Alert.alert('Laiser une note', 'Pensez ajouter une note afin de partager votre avis ou votre expérience');
+            Alert.alert('Laisser un avis', 'Veuillez nous donner une note globale pour votre commande');
             return;
         }
 
@@ -28,10 +61,13 @@ export default function ReviewScreen() {
                 orderId,
                 rating,
                 comment,
+                qualityRating: qualityRating > 0 ? qualityRating : undefined,
+                speedRating: speedRating > 0 ? speedRating : undefined,
+                presentationRating: presentationRating > 0 ? presentationRating : undefined,
             });
 
             Alert.alert(
-                'Merci pour votre avis !',
+                'Merci !',
                 'Votre avis a été publié',
                 [{ text: 'OK', onPress: () => router.replace('/(tabs)/orders') }]
             );
@@ -42,6 +78,29 @@ export default function ReviewScreen() {
             setLoading(false);
         }
     };
+
+    // Ce composant est réutilisable pour afficher des étoiles
+    const StarRating = ({
+        value,
+        onChange,
+        size = 32
+    }: {
+        value: number;
+        onChange: (v: number) => void;
+        size?: number
+    }) => (
+        <View style={styles.starsRow}>
+            {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity key={star} onPress={() => onChange(star)}>
+                    <Star
+                        size={size}
+                        color="#FFC107"
+                        fill={star <= value ? '#FFC107' : 'transparent'}
+                    />
+                </TouchableOpacity>
+            ))}
+        </View>
+    );
 
     return (
         <SafeAreaView style={styles.container} edges={['top']}>
@@ -54,24 +113,10 @@ export default function ReviewScreen() {
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
-
-                {/* étoiles pour les avis */}
+                {/* note globale */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Note globale</Text>
-                    <View style={styles.starsRow}>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <TouchableOpacity
-                                key={star}
-                                onPress={() => setRating(star)}
-                            >
-                                <Star
-                                    size={40}
-                                    color="#FFC107"
-                                    fill={star <= rating ? '#FFC107' : 'transparent'}
-                                />
-                            </TouchableOpacity>
-                        ))}
-                    </View>
+                    <StarRating value={rating} onChange={setRating} size={40} />
                     {rating > 0 && (
                         <Text style={styles.ratingText}>
                             {rating === 1 && 'Très mauvais'}
@@ -81,6 +126,50 @@ export default function ReviewScreen() {
                             {rating === 5 && 'Excellent !'}
                         </Text>
                     )}
+                </View>
+
+                {/* sous-notes par critère */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Notes par critère (optionnel)</Text>
+
+                    <View style={styles.criteriaRow}>
+                        <Text style={styles.criteriaLabel}>Qualité</Text>
+                        <StarRating value={qualityRating} onChange={setQualityRating} size={24} />
+                    </View>
+
+                    <View style={styles.criteriaRow}>
+                        <Text style={styles.criteriaLabel}>Rapidité</Text>
+                        <StarRating value={speedRating} onChange={setSpeedRating} size={24} />
+                    </View>
+
+                    <View style={styles.criteriaRow}>
+                        <Text style={styles.criteriaLabel}>Présentation</Text>
+                        <StarRating value={presentationRating} onChange={setPresentationRating} size={24} />
+                    </View>
+                </View>
+
+                
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Photos (optionnel)</Text>
+                    <View style={styles.photosRow}>
+                        {photos.map((uri, index) => (
+                            <View key={index} style={styles.photoWrapper}>
+                                <Image source={{ uri }} style={styles.photo} />
+                                <TouchableOpacity
+                                    style={styles.removePhoto}
+                                    onPress={() => setPhotos(photos.filter((_, i) => i !== index))}
+                                >
+                                    <Text style={styles.removePhotoText}>✕</Text>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                        {photos.length < 3 && (
+                            <TouchableOpacity style={styles.addPhoto} onPress={handleAddPhoto}>
+                                <Camera size={24} color="#999" />
+                                <Text style={styles.addPhotoText}>Ajouter</Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
                 </View>
 
                 
@@ -150,15 +239,70 @@ const styles = StyleSheet.create({
     },
     starsRow: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        gap: 8,
-        marginBottom: 12,
+        gap: 4,
     },
     ratingText: {
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '600',
         color: '#FF6B35',
+        marginTop: 8,
+    },
+    criteriaRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 12,
+    },
+    criteriaLabel: {
+        fontSize: 14,
+        color: '#444',
+        width: 90,
+    },
+    photosRow: {
+        flexDirection: 'row',
+        gap: 10,
+        flexWrap: 'wrap',
+    },
+    photoWrapper: {
+        position: 'relative',
+    },
+    photo: {
+        width: 80,
+        height: 80,
+        borderRadius: 8,
+    },
+    removePhoto: {
+        position: 'absolute',
+        top: -6,
+        right: -6,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: '#EF4444',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    removePhotoText: {
+        color: '#fff',
+        fontSize: 10,
+        fontWeight: '700',
+    },
+    addPhoto: {
+        width: 80,
+        height: 80,
+        borderRadius: 8,
+        backgroundColor: '#f5f5f5',
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderStyle: 'dashed',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 4,
+    },
+    addPhotoText: {
+        fontSize: 11,
+        color: '#999',
     },
     commentInput: {
         backgroundColor: '#f9f9f9',
