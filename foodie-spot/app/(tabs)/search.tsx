@@ -8,6 +8,7 @@ import { Restaurant, SearchFilters } from "@/types";
 import { Filter, Search } from "lucide-react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import { storage, STORAGE_KEYS } from '@/services/storage';
 
 export default function SearchScreen() {
     const router = useRouter();
@@ -15,9 +16,11 @@ export default function SearchScreen() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [filters, setFilters] = useState<SearchFilters>({});
     const [showFilters, setShowFilters] = useState(false);
+
     // ref pour stocker le timer du debounce
     const debounceTimer = useRef<any>(null);
     const [categories, setCategories] = useState<string[]>([]);
+    const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
     //debounce 400ms pour ne pas appeler l'API à chaque lettre tapée
 useEffect(() => {
@@ -34,15 +37,27 @@ useEffect(() => {
 }, [query, filters]);
 
 useEffect(() => {
+
     // charger les catégories depuis l'API au lieu de les hardcoder
     restaurantAPI.getCategories().then((data) => {
         const names = data.map((cat: any) => cat.name);
         setCategories(names);
     });
+
+    // charger les recherches récentes depuis le stockage local
+    storage.getItem<string[]>(STORAGE_KEYS.RECENT_SEARCHES).then(saved => {
+        if (saved) setRecentSearches(saved);
+    });
 }, []);
 
     const loadRestaurants = async () => {
         if (query) {
+
+            if (!recentSearches.includes(query)) {
+               const updated = [query, ...recentSearches].slice(0, 5); // max 5
+               setRecentSearches(updated);
+               await storage.setItem(STORAGE_KEYS.RECENT_SEARCHES, updated);
+            }
             const data = await restaurantAPI.searchRestaurants(query);
             setRestaurants(data);
         } else {
@@ -85,6 +100,22 @@ useEffect(() => {
                 )
             }
 
+            {/* recherches récentes - visible seulement si le champ est vide */}
+            {query === '' && recentSearches.length > 0 && (
+               <View style={styles.recentSection}>
+                   <Text style={styles.recentTitle}>Recherches récentes</Text>
+                   {recentSearches.map((search, index) => (
+                       <TouchableOpacity
+                           key={index}
+                           style={styles.recentItem}
+                           onPress={() => setQuery(search)}
+                    >
+                           <Text style={styles.recentText}>{search}</Text>
+                       </TouchableOpacity>
+                    ))}
+    </View> 
+)}
+
             <FlatList
     data={restaurants}
     keyExtractor={(item) => item.id}
@@ -121,13 +152,35 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#f0f0f0',
     },
+    recentSection: {
+        padding: 16,
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    recentTitle: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#999',
+        marginBottom: 8,
+        textTransform: 'uppercase',
+    },
+    recentItem: {
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f9f9f9',
+   },
+    recentText: {
+        fontSize: 15,
+        color: '#333',
+    },
     filterChipActive: {
-    backgroundColor: '#FF6B35',
+        backgroundColor: '#FF6B35',
     },
     emptyText: {
-    color: '#999',
-    textAlign: 'center',
-    marginTop: 40,
+        color: '#999',
+        textAlign: 'center',
+        marginTop: 40,
     },
     searchContainer: {
         flex: 1,
