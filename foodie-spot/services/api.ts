@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { storage, STORAGE_KEYS } from '@/services/storage';
 import { auth } from './auth'; // used to fetch token from SecureStore
-import { Dish, Order, Restaurant, SearchFilters, User } from '@/types';
+import { Dish, Order, Restaurant, SearchFilters, User, Address } from '@/types';
 import log from './logger';
 import config from '@/constants/config';
 
@@ -216,17 +216,19 @@ export const userAPI = {
     async getCurrentUser(): Promise<User | null> {
         return await storage.getItem(STORAGE_KEYS.USER);
     },
+
     async toggleFavorite(restaurantId: string): Promise<void> {
 
-    // j'ai implémenté cette fonction qui était vide dans le code original
-    // l'API attend un POST sur /user/favorites/:restaurantId
-    try {
-        await api.post(`/user/favorites/${restaurantId}`);
-    } catch (error) {
-        log.error('Erreur toggle favori', error);
-        throw error;
-    }
-},
+        // j'ai implémenté cette fonction qui était vide dans le code original
+        // l'API attend un POST sur /user/favorites/:restaurantId
+        try {
+            await api.post(`/user/favorites/${restaurantId}`);
+        } catch (error) {
+            log.error('Erreur toggle favori', error);
+            throw error;
+        }
+    },
+
     async updateProfile(updates: Partial<User>): Promise<User> {
         try {
             const response = await api.patch('/user/profile', updates);
@@ -238,12 +240,36 @@ export const userAPI = {
             throw error;
         }
     },
+
     async logout(): Promise<void> {
         await storage.removeItem(STORAGE_KEYS.USER);
         await storage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
         await cache.clearAll();
         log.info('User logged out, cache cleared');
-    }
+    },
+
+    async getAddresses(): Promise<Address[]> {
+        try {
+            const response = await api.get('/users/addresses');
+            return response.data?.data ?? [];
+        } catch {
+            return [];
+        }
+    },
+
+    async addAddress(addressData: Omit<Address, 'id'>): Promise<Address> {
+        const response = await api.post('/users/addresses', addressData);
+        return response.data?.data;
+    },
+
+    async updateAddress(id: string, data: Partial<Address>): Promise<Address> {
+        const response = await api.put(`/users/addresses/${id}`, data);
+        return response.data?.data;
+    },
+
+    async deleteAddress(id: string): Promise<void> {
+        await api.delete(`/users/addresses/${id}`);
+    },
 
 }
 

@@ -6,7 +6,7 @@ export interface Restaurant {
     image: string;
     rating: number;
     reviewCount: number;
-    deliveryTime: {min : number, max: number};
+    deliveryTime: {min : number, max: number} | number;
     distance: number;
     priceRange: string;
     address: string;
@@ -63,6 +63,7 @@ export interface Address {
     city: string;
     postalCode: string;
     country: string;
+    isDefault?: boolean;
     coordinates: {
         latitude: number;
         longitude: number;
@@ -75,7 +76,7 @@ export interface Order {
     items: CartItem[];
     total: number;
     deliveryFee: number;
-    status: 'pending' | 'confirmed' | 'preparing' | 'on-the-way' | 'delivered' | 'cancelled' | 'ready' | 'picked-up' | ' delivering';
+    status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'picked_up' | 'delivering' | 'on-the-way' | 'delivered' | 'cancelled';
     createdAt: Date;
     estimatedDeliveryTime?: Date;
     deliveryAddress: string;

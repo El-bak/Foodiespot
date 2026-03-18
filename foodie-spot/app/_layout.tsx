@@ -17,6 +17,7 @@ import { useOffline } from '@/hooks/use-offline';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { ThemeProvider as AppThemeProvider } from '@/contexts/theme-context'; 
+import { storage } from '@/services/storage';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -54,6 +55,15 @@ function RootLayoutContent() {
       refreshAuth();
     }
   }, [segments, isLoading, isAuthenticated, refreshAuth]);
+
+  // La ça permet devérifier si c'est le premier lanceement
+  useEffect(() => {
+      storage.getItem<boolean>('onboarding_done').then(done => {
+          if (!done) {
+              router.replace('/onboarding');
+          }
+     });
+  }, []);
 
   if (isLoading) {
     return (
@@ -94,6 +104,8 @@ function RootLayoutContent() {
         <Stack.Screen name="checkout" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="tracking/[orderId]" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="review/[orderId]" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="onboarding" options={{ animation: 'fade', gestureEnabled: false }} />
+        <Stack.Screen name="addresses" options={{ animation: 'slide_from_right' }} />
       </Stack>
 
       <StatusBar style="auto" />

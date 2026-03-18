@@ -126,9 +126,10 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.menuItem}>
-            <MapPin size={20} color="#666" />
-            <Text style={styles.menuText}>Mes adresses</Text>
+          <TouchableOpacity style={styles.menuItem} 
+               onPress={() => router.push('/addresses')}>
+              <MapPin size={20} color="#666" />
+              <Text style={styles.menuText}>Mes adresses</Text>
             <View style={styles.menuRight}>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{user.addresses.length}</Text>
@@ -166,11 +167,6 @@ export default function ProfileScreen() {
             <ChevronRight size={18} color="#ccc" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.menuItem, styles.logoutItem]} onPress={handleLogout}>
-            <LogOut size={20} color="#FF6B35" />
-            <Text style={[styles.menuText, styles.logoutText]}>Déconnexion</Text>
-          </TouchableOpacity>
-
           <View style={styles.menuItem}>
               <Text style={styles.menuText}>Apparence</Text>
               <View style={styles.menuRight}>
@@ -198,9 +194,9 @@ export default function ProfileScreen() {
               </View>
            </View>
 
-           <TouchableOpacity 
-               style={[styles.menuItem, styles.logoutItem]} 
-               onPress={handleLogout}>
+           <TouchableOpacity style={[styles.menuItem, styles.logoutItem]} onPress={handleLogout}>
+               <LogOut size={20} color="#FF6B35" />
+               <Text style={[styles.menuText, styles.logoutText]}>Déconnexion</Text>
            </TouchableOpacity>
 
         </View>
