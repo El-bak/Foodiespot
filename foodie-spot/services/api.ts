@@ -217,6 +217,7 @@ export const userAPI = {
         return await storage.getItem(STORAGE_KEYS.USER);
     },
     async toggleFavorite(restaurantId: string): Promise<void> {
+
     // j'ai implémenté cette fonction qui était vide dans le code original
     // l'API attend un POST sur /user/favorites/:restaurantId
     try {
@@ -283,12 +284,27 @@ export const orderAPI = {
             }
             return order;
         } catch (error) {
+
             // log.error(`Failed to fetch order ${id}`, error);
             return (await cache.get<Order>(`order_${id}`)) || null;
         }
     },
+    
+    async createOrder(payload: {
+        restaurantId: string;
+        items: { menuItemId: string; quantity: number }[];
+        deliveryAddress: any;
+        paymentMethod: string;
+    }): Promise<Order> {
+
+        // Cela permet d'envoyer la commande au backend
+        const response = await api.post('/orders', payload);
+        return response.data?.data;
+    },
+
 
     async syncOfflineOrders(): Promise<void> {
+        
         // cette fonction était appelée dans use-offline.ts mais n'existait pas
         const offlineOrders = await storage.getItem<any[]>(STORAGE_KEYS.OFFLINE_ORDERS);
         if (!offlineOrders || offlineOrders.length === 0) return;
