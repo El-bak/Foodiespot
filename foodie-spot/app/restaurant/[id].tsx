@@ -128,7 +128,7 @@ export default function RestaurantScreen() {
                 <View style={styles.menu}>
                     <Text style={styles.menuTitle}>Menu</Text>
                     {menu.map((dish) => (
-                        <DishCard key={dish.id} dish={dish} onPress={() => router.push(`/dish/${dish.id}`)} />  
+                        <DishCard key={dish.id} dish={dish} onPress={() => router.push(`/dish/${dish.id}?restaurantId=${id}`)} />
                         ))}  
                 </View>
 

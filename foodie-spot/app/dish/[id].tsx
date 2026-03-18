@@ -4,34 +4,56 @@ import { restaurantAPI } from "@/services/api";
 import { Dish } from "@/types";
 import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { Image } from "expo-image";
 import { ArrowLeft, Minus, Plus } from "lucide-react-native";
+import { useCart } from '@/contexts/cart-context';
 
 export default function DishScreen() {
-    const { id } = useLocalSearchParams<{ id: string }>();
+     const { id, restaurantId } = useLocalSearchParams<{ id: string; restaurantId: string }>();
     const [dish, setDish] = useState<Dish | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
+    const [loading, setLoading] = useState(true);
+
+    // récupérer restaurantId depuis les paramètres de navigation
+   
+    const { addItem } = useCart();
 
     useEffect(() => {
         loadDish();
     }, [id]);
 
     const loadDish = async () => {
-        // const dishData = await restaurantAPI.getDishById(id);
-        const dishData = await Promise.all(['r1', 'r2'].map((rid) => restaurantAPI.getMenu(rid)));
-        const allDishes = dishData.flat();
-        const foundDish = allDishes.find((d) => d.id === id) || null;
-        setDish(foundDish);
-    };
-
-    if (!dish) {
-        return (
-            <SafeAreaView style={styles.container} edges={['top']}>
-                <Text>Loading...</Text>
-            </SafeAreaView>
-        );
+    /* J'ai supprimés les ID Hardcore ['r1', 'r2']ce qui fait que maintenant on reçoit le restaurantId depuis la page restaurant. */
+    if (!restaurantId) {
+        setLoading(false);
+        return;
     }
+    const dishes = await restaurantAPI.getMenu(restaurantId);
+    const allDishes = dishes.flat();
+    const foundDish = allDishes.find((d) => d.id === id) || null;
+    setDish(foundDish);
+    setLoading(false);
+};
+
+    if (loading) {
+    return (
+        <SafeAreaView style={styles.container} edges={['top']}>
+            <ActivityIndicator size="large" color="#FF6B35" style={{ marginTop: 40 }} />
+        </SafeAreaView>
+    );
+    
+}
+
+if (!dish) {
+    return (
+        <SafeAreaView style={styles.container} edges={['top']}>
+            <View style={styles.loading}>
+                <Text style={{ color: '#999' }}>Plat introuvable</Text>
+            </View>
+        </SafeAreaView>
+    );
+}
     return (
         <SafeAreaView style={styles.container} edges={['top']}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -63,8 +85,16 @@ export default function DishScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.addButton}>
-                        <Text style={styles.addButtonText}>Ajouter au panier</Text>
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        onPress={() => {
+                           if (dish && restaurantId) {
+                               addItem(dish, restaurantId);
+                               router.push('/cart');
+                            }
+                        }}
+                    >   
+                        <Text style={styles.addButtonText}>Ajouter au panier ({quantity})</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -77,7 +107,6 @@ export default function DishScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: -100,
         backgroundColor: '#fff',
     },
     loading: {

@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import 'react-native-reanimated';
 
 import { AuthProvider, useAuth } from '@/contexts/auth-context';
+import { CartProvider } from '@/contexts/cart-context';
 import { ToastProvider } from '@/components/toast-provider';
 import { useOffline } from '@/hooks/use-offline';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -114,7 +115,9 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <ToastProvider>
         <AuthProvider>
+          <CartProvider>
           <RootLayoutContent />
+          </CartProvider>
         </AuthProvider>
         </ToastProvider>
       </SafeAreaProvider>
