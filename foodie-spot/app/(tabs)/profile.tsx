@@ -12,6 +12,8 @@ import log from '@/services/logger';
 import  { useToast } from '@/components/toast-provider';
 import { useAuth } from '@/contexts/auth-context';
 import { useTheme } from '@/contexts/theme-context';
+import { useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
 
 export default function ProfileScreen() {
 
@@ -20,16 +22,33 @@ export default function ProfileScreen() {
   const { user: authUser,logout } = useAuth();
   const [orderCount, setOrderCount] = useState(0);
   const { themeMode, setThemeMode, colors, isDark } = useTheme();
-
+  const [favoriteCount, setFavoriteCount] = useState(0);
+  const [addressCount, setAddressCount] = useState(0)
   
-  useEffect(() => {
-     loadUser();
+  
+  // remplace les deux useEffect par celui-ci
+  useFocusEffect(
+      useCallback(() => {
+          loadUser();
+          orderAPI.getOrders().then(orders => setOrderCount(orders.length));
+          userAPI.getFavorites().then(favs => setFavoriteCount(favs.length));
+          userAPI.getAddresses().then(addresses => setAddressCount(addresses.length));
+      },   [])
+  );
 
-     // Cela permet de récupérer le vrai nombre de commandes
-     orderAPI.getOrders().then(orders => setOrderCount(orders.length));
-  }, []);
 
   const loadUser = async () => {
+
+    try {
+        const fresh = await userAPI.getProfile();
+        if (fresh) {
+            setUser(fresh);
+            return;
+        }
+    } catch (error) {
+        log.error('Failed to fetch profile:', error);
+    }
+
     const userData = await userAPI.getCurrentUser();
     log.info('Loaded user data:', toast, userData);
     
@@ -116,7 +135,7 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{user.favoriteRestaurants?.length ?? 0}</Text>
+            <Text style={styles.statValue}>{favoriteCount}</Text>
             <Text style={styles.statLabel}>Favoris</Text>
           </View>
           <View style={styles.statDivider} />
@@ -133,7 +152,7 @@ export default function ProfileScreen() {
               <Text style={styles.menuText}>Mes adresses</Text>
             <View style={styles.menuRight}>
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>{user.addresses.length}</Text>
+                <Text style={styles.badgeText}>{addressCount}</Text>
               </View>
               <ChevronRight size={18} color="#ccc" />
             </View>
@@ -144,7 +163,7 @@ export default function ProfileScreen() {
             <Text style={styles.menuText}>Mes favoris</Text>
             <View style={styles.menuRight}>
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>{user.favoriteRestaurants.length}</Text>
+                <Text style={styles.badgeText}>{favoriteCount}</Text>
               </View>
               <ChevronRight size={18} color="#ccc" />
             </View>

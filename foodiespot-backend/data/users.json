@@ -182,6 +182,42 @@
         "isDefault": true,
         "createdAt": "2026-03-19T15:59:39.970Z",
         "updatedAt": "2026-03-19T15:59:41.400Z"
+      },
+      {
+        "id": "9523b762-9d31-474b-90d3-acd693eef9aa",
+        "label": "Bureau",
+        "street": "32 rue pigale",
+        "city": "Marseil",
+        "postalCode": "83015",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": false,
+        "createdAt": "2026-03-19T18:44:54.632Z"
+      },
+      {
+        "id": "82a7eb62-bdd2-4e69-bfb0-ef422a3b144c",
+        "label": "Maison",
+        "street": "46 rue de python",
+        "city": "Nice",
+        "postalCode": "89012",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": false,
+        "createdAt": "2026-03-19T19:02:07.977Z"
+      },
+      {
+        "id": "7082c027-09d5-4e86-8542-770c466dc1d5",
+        "label": "Palace",
+        "street": "23 rue de trevise",
+        "city": "Paris",
+        "postalCode": "75009",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": false,
+        "createdAt": "2026-03-19T19:34:08.785Z"
       }
     ],
     "notificationsEnabled": true,

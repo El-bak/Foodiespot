@@ -1,0 +1,36 @@
+[
+  {
+    "id": "53695df8-a299-443b-935c-2b10e225963f",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "userName": "Yazid EL-BAK",
+    "userAvatar": "",
+    "restaurantId": "r4",
+    "orderId": "4752fbd6-157e-4fc3-91c5-2f67bde4233c",
+    "rating": 4,
+    "qualityRating": 3,
+    "speedRating": 2,
+    "presentationRating": 2,
+    "comment": "Le colis est bien arrivé",
+    "images": [],
+    "likes": 0,
+    "isVerifiedPurchase": true,
+    "createdAt": "2026-03-19T21:32:06.860Z"
+  },
+  {
+    "id": "dc15d765-1b13-40aa-8b35-e0d2ea9c1440",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "userName": "Yazid EL-BAK",
+    "userAvatar": "",
+    "restaurantId": "r1",
+    "orderId": "edbf2050-38ed-495f-8734-599de51f03fe",
+    "rating": 3,
+    "qualityRating": 3,
+    "speedRating": 4,
+    "presentationRating": 3,
+    "comment": "Bon",
+    "images": [],
+    "likes": 0,
+    "isVerifiedPurchase": true,
+    "createdAt": "2026-03-19T21:47:48.929Z"
+  }
+]

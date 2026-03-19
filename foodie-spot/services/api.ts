@@ -1,4 +1,3 @@
-// services/api.ts
 import { cache } from '@/services/cache';
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
@@ -226,8 +225,6 @@ export const userAPI = {
         
     },
 
-    
-
     async toggleFavorite(restaurantId: string): Promise<void> {
 
         // j'ai implémenté cette fonction qui était vide dans le code original
@@ -238,6 +235,15 @@ export const userAPI = {
             log.error('Erreur toggle favori', error);
             throw error;
         }
+    },
+
+    async getFavorites(): Promise<Restaurant[]> {
+        try {
+            const response = await api.get('/user/favorites');
+            return response.data?.data ?? [];
+        } catch {
+            return [];
+       }
     },
 
     async updateProfile(updates: Partial<User>): Promise<User> {
@@ -280,6 +286,15 @@ export const userAPI = {
 
     async deleteAddress(id: string): Promise<void> {
         await api.delete(`/users/addresses/${id}`);
+    },
+
+    async getProfile(): Promise<User | null> {
+        try {
+            const response = await api.get('/users/profile');
+            return response.data?.data ?? null;
+        } catch {
+            return null;
+        }
     },
 
 }

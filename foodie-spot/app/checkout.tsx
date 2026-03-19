@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from "react-native";
+// app/checkout.tsx
+import { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
 import { useCart } from "@/contexts/cart-context";
 import { useAuth } from "@/contexts/auth-context";
-import api, { orderAPI } from "@/services/api";
+import api, { userAPI, orderAPI, } from "@/services/api";
+
 
 export default function CheckoutScreen() {
     const { items, restaurantId, totalPrice, clearCart } = useCart();
@@ -13,14 +15,24 @@ export default function CheckoutScreen() {
     const [loading, setLoading] = useState(false);
 
     const deliveryFee = totalPrice >= 25 ? 0 : 2.99;
-    const total = totalPrice + deliveryFee;
 
-    // Adresse par défaut de l'utilisateur
-    const defaultAddress = user?.addresses?.find(a => a.isDefault) || user?.addresses?.[0];
+    const [defaultAddress, setDefaultAddress] = useState<any>(null);
     const [promoCode, setPromoCode] = useState('');
     const [promoResult, setPromoResult] = useState<{ discount: number; message: string } | null>(null);
     const [promoError, setPromoError] = useState('');
     const [promoLoading, setPromoLoading] = useState(false);
+    const discount = promoResult?.discount ?? 0;
+    const total = totalPrice + deliveryFee - discount;
+    const [addresses, setAddresses] = useState<any[]>([]);
+    const [selectedAddress, setSelectedAddress] = useState<any>(null);
+
+    useEffect(() => { 
+        userAPI.getAddresses().then(addrs => { 
+            setAddresses(addrs);
+            const def = addrs.find((a: any) => a.isDefault) || addrs[0];
+            setSelectedAddress(def);
+        });
+    }, []);
 
     const handleConfirmOrder = async () => {
         if (!restaurantId) {
@@ -28,7 +40,9 @@ export default function CheckoutScreen() {
             return;
         }
 
-        if (!defaultAddress) {
+        if (!selectedAddress
+
+        ) {
             Alert.alert(
                 'Adresse manquante',
                 'Veuillez ajouter une adresse de livraison dans votre profil'
@@ -46,7 +60,7 @@ export default function CheckoutScreen() {
             const order = await orderAPI.createOrder({
                 restaurantId,
                 items: orderItems,
-                deliveryAddress: defaultAddress,
+                deliveryAddress: selectedAddress,
                 paymentMethod: 'card',
             });
 
@@ -100,22 +114,30 @@ export default function CheckoutScreen() {
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
+
                 {/* adresse de livraison */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Adresse de livraison</Text>
-                    {defaultAddress ? (
-                        <View style={styles.addressCard}>
-                            <Text style={styles.addressLabel}>{defaultAddress.label}</Text>
-                            <Text style={styles.addressText}>
-                                {defaultAddress.street}, {defaultAddress.city}
-                            </Text>
-                        </View>
-                    ) : (
-                        <Text style={styles.noAddress}>
-                            Aucune adresse — ajoutez-en une dans votre profil
-                        </Text>
-                    )}
-                </View>
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Adresse de livraison</Text>
+                {addresses.length === 0 ? (
+                    <Text style={styles.noAddress}>
+                        Aucune adresse — ajoutez-en une dans votre profil
+                    </Text>
+                ) : (
+                    addresses.map(addr => (
+                        <TouchableOpacity
+                            key={addr.id}
+                            style={[styles.addressCard, selectedAddress?.id === addr.id && styles.addressCardSelected]}
+                            onPress={() => setSelectedAddress(addr)}
+                        >
+                            <Text style={styles.addressLabel}>{addr.label}</Text>
+                            <Text style={styles.addressText}>{addr.street}, {addr.city}</Text>
+                            {selectedAddress?.id === addr.id && (
+                                <Text style={styles.addressSelected}>✓ Sélectionnée</Text>
+                            )}
+                        </TouchableOpacity>
+        ))
+    )}
+</View>
 
                 {/* récapitulatif */}
                 <View style={styles.section}>
@@ -131,7 +153,41 @@ export default function CheckoutScreen() {
                         </View>
                     ))}
                 </View>
-
+                
+                {/* code promo */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Code promo</Text>
+                    <View style={styles.promoRow}>
+                        <TextInput
+                            style={styles.promoInput}
+                            placeholder="Entrez votre code"
+                            value={promoCode}
+                            onChangeText={(text) => {
+                                setPromoCode(text);
+                                setPromoError('');
+                                setPromoResult(null);
+                            }}
+                            autoCapitalize="characters"
+                        />
+                        <TouchableOpacity
+                            style={styles.promoButton}
+                            onPress={handleValidatePromo}
+                            disabled={promoLoading}
+                        >
+                            <Text style={styles.promoButtonText}>
+                                {promoLoading ? '...' : 'OK'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    {promoError !== '' && (
+                        <Text style={styles.promoError}>{promoError}</Text>
+                    )}
+                    {promoResult && (
+                        <Text style={styles.promoSuccess}>
+                               {promoResult.message} (-{promoResult.discount.toFixed(2)} €)
+                        </Text>
+                    )}
+                </View>
                 {/* total */}
                 <View style={styles.section}>
                     <View style={styles.totalRow}>
@@ -144,6 +200,12 @@ export default function CheckoutScreen() {
                             {deliveryFee === 0 ? 'Gratuite' : `${deliveryFee.toFixed(2)} €`}
                         </Text>
                     </View>
+                    {discount > 0 && (
+                        <View style={styles.totalRow}>
+                            <Text style={[styles.totalLabel, { color: '#4CAF50' }]}>Réduction</Text>
+                            <Text style={[styles.totalValue, { color: '#4CAF50' }]}>-{discount.toFixed(2)} €</Text>
+                        </View> 
+                    )}
                     <View style={[styles.totalRow, styles.grandTotalRow]}>
                         <Text style={styles.grandTotalLabel}>Total</Text>
                         <Text style={styles.grandTotalValue}>{total.toFixed(2)} €</Text>
@@ -288,5 +350,48 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: '700',
+    },
+    promoRow: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    promoInput: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        fontSize: 14,
+    },
+    promoButton: {
+        backgroundColor: '#FF6B35',
+        borderRadius: 8,
+        paddingHorizontal: 16,
+        justifyContent: 'center',
+    },
+    promoButtonText: {
+        color: '#fff',
+        fontWeight: '700',
+    },
+    promoError: {
+        color: '#EF4444',
+        fontSize: 13,
+        marginTop: 6,
+    },
+    promoSuccess: {
+        color: '#4CAF50',
+        fontSize: 13,
+        marginTop: 6,
+        fontWeight: '600',
+    },
+    addressCardSelected: {
+        borderWidth: 2,
+        borderColor: '#FF6B35',
+    },
+    addressSelected: {
+        color: '#FF6B35',
+        fontSize: 12,
+        fontWeight: '600',
+        marginTop: 4,
     },
 });

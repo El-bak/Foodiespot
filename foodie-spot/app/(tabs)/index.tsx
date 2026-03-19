@@ -10,6 +10,7 @@ import { Restaurant } from '@/types';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '@/contexts/theme-context';
 
 
 export default function HomeScreen() {
@@ -19,6 +20,7 @@ export default function HomeScreen() {
   const [location, setLocation] = useState<string>('Locating...');
   const [promo, setPromo] = useState<{ title: string; code: string } | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { colors } = useTheme();
 
   useEffect(() => {
     // Fetch restaurants data
@@ -78,7 +80,7 @@ export default function HomeScreen() {
  };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
         <View style={styles.locationContainer}>
           <MapPin size={20} color="#fff" />

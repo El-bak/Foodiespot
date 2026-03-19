@@ -6,11 +6,14 @@ import { useNotifications } from '@/hooks/use-notifications';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme } from '@/contexts/theme-context';
+
 export default function NotificationScreen() {
 
-     const router = useRouter();
+    const router = useRouter();
     const [testResults, setTestResults] = useState<string[]>([]);
     const isSimulator = !Device.isDevice;
+    const { colors } = useTheme();
 
     const {
         pushToken,
@@ -121,7 +124,7 @@ export default function NotificationScreen() {
 
 
     return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
       <LinearGradient colors={['#a855f7', '#ec4899']} style={styles.header}>
         <View style={styles.headerTop}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>

@@ -49,8 +49,10 @@ export default function OrdersScreen() {
                     <OrderCard
                         order={item}
                         onPress={() => {
-                            if ((item.status === 'on-the-way' || item.status === 'preparing') && item.id) {
+                            if (['on-the-way', 'preparing', 'delivering', 'picked_up', 'confirmed', 'pending'].includes(item.status)) {
                                 router.push(`/tracking/${item.id}`);
+                            } else if (item.status === 'delivered') {
+                                 router.push(`/review/${item.id}?restaurantId=${item.restaurantId}`);
                             }
                         }}
                     />

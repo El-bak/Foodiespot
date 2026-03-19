@@ -127,7 +127,11 @@ export default function TrackingScreen() {
 
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Adresse de livraison</Text>
-                    <Text style={styles.value}>{order.deliveryAddress}</Text>
+                    <Text style={styles.value}>
+                        {typeof order.deliveryAddress === 'object' && order.deliveryAddress !== null
+                            ? `${(order.deliveryAddress as any).street}, ${(order.deliveryAddress as any).city}`
+                            : order.deliveryAddress as string}
+                    </Text>
                 </View>
 
                 {/* C'est pour les infos du livreur si ils sont disponibles */}
@@ -138,9 +142,22 @@ export default function TrackingScreen() {
                         <Text style={styles.label}>{order.driverInfo.phone}</Text>
                     </View>
                 )}
+                
+                {order.status === 'delivered' && ( 
+                    <TouchableOpacity
+                        style={styles.reviewButton}
+                        onPress={() => router.push(`/review/${order.id}?restaurantId=${order.restaurantId}`)}
+                    >
+                        <Text style={styles.reviewButtonText}>⭐ Laisser un avis</Text>
+                    </TouchableOpacity>
+                )}
+
             </ScrollView>
         </SafeAreaView>
     );
+
+    
+    
 }
 
 const styles = StyleSheet.create({
@@ -247,5 +264,17 @@ const styles = StyleSheet.create({
     timelineLabelDone: {
         color: '#333',
         fontWeight: '600',
+    },
+    reviewButton: {
+        backgroundColor: '#FF6B35',
+        borderRadius: 12,
+        padding: 16,
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    reviewButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '700',
     },
 });

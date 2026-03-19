@@ -483,5 +483,925 @@
     "createdAt": "2026-03-19T15:30:47.669Z",
     "updatedAt": "2026-03-19T15:32:17.671Z",
     "actualDelivery": "2026-03-19T15:32:17.671Z"
+  },
+  {
+    "id": "631563f5-7522-443d-87b4-17fd7f0d847d",
+    "orderNumber": "FS-44292766",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d1",
+        "quantity": 2,
+        "menuItem": {
+          "id": "d1",
+          "name": "Soupe à l'Oignon",
+          "description": "Soupe à l'oignon gratinée au fromage",
+          "price": 8.5,
+          "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 17
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 17,
+    "deliveryFee": 3.5,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 21.49,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "b5e8a292-182d-42fc-ac56-15eef582a40f",
+      "label": "Maison",
+      "street": "41 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true,
+      "createdAt": "2026-03-19T15:59:39.970Z",
+      "updatedAt": "2026-03-19T15:59:41.400Z"
+    },
+    "estimatedDelivery": "2026-03-19T18:58:12.766Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T18:18:12.766Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T18:18:22.794Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T18:18:32.773Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T18:18:52.781Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T18:19:02.767Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T18:19:12.777Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T18:19:42.778Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T18:18:12.766Z",
+    "updatedAt": "2026-03-19T18:19:42.778Z",
+    "actualDelivery": "2026-03-19T18:19:42.778Z"
+  },
+  {
+    "id": "289184a7-3f19-421a-8623-fc32bab2800c",
+    "orderNumber": "FS-51146162",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r5",
+    "restaurantName": "Taco Loco",
+    "restaurantImage": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+    "restaurantPhone": "+33 1 43 26 78 90",
+    "items": [
+      {
+        "menuItemId": "t1",
+        "quantity": 3,
+        "menuItem": {
+          "id": "t1",
+          "name": "Tacos Al Pastor (3 pcs)",
+          "description": "Porc mariné, ananas, coriandre, oignon",
+          "price": 9.9,
+          "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten"
+          ]
+        },
+        "totalPrice": 29.700000000000003
+      },
+      {
+        "menuItemId": "ts2",
+        "quantity": 1,
+        "menuItem": {
+          "id": "ts2",
+          "name": "Nachos Supreme",
+          "description": "Chips, fromage fondu, jalapeños, crème, salsa",
+          "price": 8.9,
+          "image": "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=400",
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": true,
+          "spicyLevel": 1,
+          "allergens": [
+            "lait"
+          ]
+        },
+        "totalPrice": 8.9
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 38.6,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 39.59,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "7082c027-09d5-4e86-8542-770c466dc1d5",
+      "label": "Palace",
+      "street": "23 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:34:08.785Z"
+    },
+    "estimatedDelivery": "2026-03-19T20:37:26.162Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:12:26.162Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:12:36.169Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:12:46.168Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:13:06.173Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:13:16.181Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:13:26.172Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T20:13:56.181Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:12:26.162Z",
+    "updatedAt": "2026-03-19T20:13:56.181Z",
+    "actualDelivery": "2026-03-19T20:13:56.181Z"
+  },
+  {
+    "id": "769b70c3-685b-40b6-89cf-368f0e90e19c",
+    "orderNumber": "FS-51400660",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d1",
+        "quantity": 3,
+        "menuItem": {
+          "id": "d1",
+          "name": "Soupe à l'Oignon",
+          "description": "Soupe à l'oignon gratinée au fromage",
+          "price": 8.5,
+          "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 25.5
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 25.5,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 26.49,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "9523b762-9d31-474b-90d3-acd693eef9aa",
+      "label": "Bureau",
+      "street": "32 rue pigale",
+      "city": "Marseil",
+      "postalCode": "83015",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T18:44:54.632Z"
+    },
+    "estimatedDelivery": "2026-03-19T20:56:40.660Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:16:40.660Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:16:50.674Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:17:00.674Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:17:20.661Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:17:30.684Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:17:40.684Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T20:18:10.674Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:16:40.660Z",
+    "updatedAt": "2026-03-19T20:18:10.674Z",
+    "actualDelivery": "2026-03-19T20:18:10.674Z"
+  },
+  {
+    "id": "2da58e80-2af2-4470-8955-0a2a4a17207e",
+    "orderNumber": "FS-51488765",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r3",
+    "restaurantName": "Le Burger Gourmet",
+    "restaurantImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "restaurantPhone": "+33 1 42 36 12 34",
+    "items": [
+      {
+        "menuItemId": "b1",
+        "quantity": 3,
+        "menuItem": {
+          "id": "b1",
+          "name": "Classic Burger",
+          "description": "Steak haché 150g, cheddar affiné, salade, tomate, oignon rouge, sauce maison",
+          "price": 12.9,
+          "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait",
+            "oeuf"
+          ]
+        },
+        "totalPrice": 38.7
+      },
+      {
+        "menuItemId": "b3",
+        "quantity": 1,
+        "menuItem": {
+          "id": "b3",
+          "name": "Veggie Deluxe",
+          "description": "Steak végétal Beyond Meat, avocat, roquette, tomate séchée, sauce tahini",
+          "price": 13.5,
+          "image": "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=400",
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": true,
+          "isVegetarian": true,
+          "isVegan": true,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "sesame"
+          ]
+        },
+        "totalPrice": 13.5
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 52.2,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 53.190000000000005,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "b5e8a292-182d-42fc-ac56-15eef582a40f",
+      "label": "Maison",
+      "street": "41 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true,
+      "createdAt": "2026-03-19T15:59:39.970Z",
+      "updatedAt": "2026-03-19T15:59:41.400Z"
+    },
+    "estimatedDelivery": "2026-03-19T20:53:08.765Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:18:08.765Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:18:18.778Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:18:28.780Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:18:48.778Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:18:58.778Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:19:08.778Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T20:19:38.777Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:18:08.765Z",
+    "updatedAt": "2026-03-19T20:19:38.777Z",
+    "actualDelivery": "2026-03-19T20:19:38.777Z"
+  },
+  {
+    "id": "637bc837-a62b-4850-8158-62699472aef3",
+    "orderNumber": "FS-51786619",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d1",
+        "quantity": 1,
+        "menuItem": {
+          "id": "d1",
+          "name": "Soupe à l'Oignon",
+          "description": "Soupe à l'oignon gratinée au fromage",
+          "price": 8.5,
+          "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 8.5
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 8.5,
+    "deliveryFee": 3.5,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 12.99,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "7082c027-09d5-4e86-8542-770c466dc1d5",
+      "label": "Palace",
+      "street": "23 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:34:08.785Z"
+    },
+    "estimatedDelivery": "2026-03-19T21:03:06.619Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:23:06.619Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:23:16.628Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:23:26.633Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:23:46.622Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:23:56.623Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:24:06.624Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T20:24:36.622Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:23:06.619Z",
+    "updatedAt": "2026-03-19T20:24:36.622Z",
+    "actualDelivery": "2026-03-19T20:24:36.622Z"
+  },
+  {
+    "id": "feff2257-2ae1-4a9b-a0fd-33b1951271e3",
+    "orderNumber": "FS-53554195",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d2",
+        "quantity": 5,
+        "menuItem": {
+          "id": "d2",
+          "name": "Escargots de Bourgogne",
+          "description": "6 escargots au beurre persillé",
+          "price": 12,
+          "image": "https://images.unsplash.com/photo-1598866594230-a7c12756260f?q=80&w=2070&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "lait",
+            "mollusques"
+          ]
+        },
+        "totalPrice": 60
+      },
+      {
+        "menuItemId": "d4",
+        "quantity": 2,
+        "menuItem": {
+          "id": "d4",
+          "name": "Boeuf Bourguignon",
+          "description": "Boeuf mijoté au vin rouge avec légumes de saison",
+          "price": 18.5,
+          "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=2070&auto=format&fit=crop",
+          "category": "Plats",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "sulfites"
+          ]
+        },
+        "totalPrice": 37
+      },
+      {
+        "menuItemId": "d7",
+        "quantity": 1,
+        "menuItem": {
+          "id": "d7",
+          "name": "Steak Frites",
+          "description": "Entrecôte grillée 300g, sauce au poivre, frites maison",
+          "price": 22,
+          "image": "https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=2071&auto=format&fit=crop",
+          "category": "Plats",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "lait"
+          ]
+        },
+        "totalPrice": 22
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 119,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 119.99,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "7082c027-09d5-4e86-8542-770c466dc1d5",
+      "label": "Palace",
+      "street": "23 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:34:08.785Z"
+    },
+    "estimatedDelivery": "2026-03-19T21:32:34.195Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:52:34.195Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:52:44.202Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:52:54.212Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:53:14.213Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:53:24.214Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:53:34.221Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T20:54:04.222Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:52:34.195Z",
+    "updatedAt": "2026-03-19T20:54:04.222Z",
+    "actualDelivery": "2026-03-19T20:54:04.222Z"
+  },
+  {
+    "id": "edbf2050-38ed-495f-8734-599de51f03fe",
+    "orderNumber": "FS-53930652",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d1",
+        "quantity": 2,
+        "menuItem": {
+          "id": "d1",
+          "name": "Soupe à l'Oignon",
+          "description": "Soupe à l'oignon gratinée au fromage",
+          "price": 8.5,
+          "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 17
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 17,
+    "deliveryFee": 3.5,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 21.49,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "b5e8a292-182d-42fc-ac56-15eef582a40f",
+      "label": "Maison",
+      "street": "41 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true,
+      "createdAt": "2026-03-19T15:59:39.970Z",
+      "updatedAt": "2026-03-19T15:59:41.400Z"
+    },
+    "estimatedDelivery": "2026-03-19T21:38:50.652Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T20:58:50.652Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T20:59:00.660Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T20:59:10.658Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T20:59:30.653Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T20:59:40.665Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T20:59:50.666Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T21:00:20.653Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T20:58:50.652Z",
+    "updatedAt": "2026-03-19T21:00:20.653Z",
+    "actualDelivery": "2026-03-19T21:00:20.653Z"
+  },
+  {
+    "id": "4752fbd6-157e-4fc3-91c5-2f67bde4233c",
+    "orderNumber": "FS-54169334",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r4",
+    "restaurantName": "Pizza Napoli",
+    "restaurantImage": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800",
+    "restaurantPhone": "+33 1 45 67 89 10",
+    "items": [
+      {
+        "menuItemId": "p1",
+        "quantity": 1,
+        "menuItem": {
+          "id": "p1",
+          "name": "Margherita",
+          "description": "Sauce tomate, mozzarella fior di latte, basilic frais, huile d'olive",
+          "price": 11.9,
+          "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 11.9
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 11.9,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 12.89,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "82a7eb62-bdd2-4e69-bfb0-ef422a3b144c",
+      "label": "Maison",
+      "street": "46 rue de python",
+      "city": "Nice",
+      "postalCode": "89012",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:02:07.977Z"
+    },
+    "estimatedDelivery": "2026-03-19T21:42:49.334Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T21:02:49.334Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T21:02:59.340Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T21:03:09.347Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T21:03:29.349Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T21:03:39.339Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T21:03:49.338Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T21:04:19.356Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T21:02:49.334Z",
+    "updatedAt": "2026-03-19T21:04:19.356Z",
+    "actualDelivery": "2026-03-19T21:04:19.356Z"
   }
 ]

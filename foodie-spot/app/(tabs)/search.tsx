@@ -9,6 +9,7 @@ import { Filter, Search } from "lucide-react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { storage, STORAGE_KEYS } from '@/services/storage';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function SearchScreen() {
     const router = useRouter();
@@ -16,6 +17,7 @@ export default function SearchScreen() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [filters, setFilters] = useState<SearchFilters>({});
     const [showFilters, setShowFilters] = useState(false);
+    const { colors } = useTheme();
 
     // ref pour stocker le timer du debounce
     const debounceTimer = useRef<any>(null);
@@ -67,7 +69,7 @@ useEffect(() => {
     };
 
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
             <View style={styles.header}>
                 <View style={styles.searchContainer}>
                     <Search size={24} color={Colors.light.text} />

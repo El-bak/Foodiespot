@@ -1,4 +1,3 @@
-// app/restaurant/[id].tsx
 import { useEffect, useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator} from "react-native";
 import { Dish, Restaurant } from "@/types";
@@ -9,6 +8,7 @@ import { Image } from "expo-image";
 import { ArrowLeft, Clock, Heart, MapPin, Navigation, Phone, Share2, Star } from "lucide-react-native";
 import { DishCard } from "@/components/dish-card";
 import { useCart } from '@/contexts/cart-context';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function RestaurantScreen() {
     const { id } = useLocalSearchParams<{ id: string }>();
@@ -17,6 +17,7 @@ export default function RestaurantScreen() {
     const [isFavorite, setIsFavorite] = useState(false);
     const [loading, setLoading] = useState(true);
     const { addItem } = useCart();
+    const { colors } = useTheme();
 
     useEffect(() => {
         loadRestaurant();
@@ -56,7 +57,7 @@ export default function RestaurantScreen() {
     };
 
     const handleCall = () => {
-        
+
         // appeler le restaurant si le numéro est disponible
         if (restaurant?.phone) {
            Linking.openURL(`tel:${restaurant.phone}`);
@@ -74,7 +75,7 @@ export default function RestaurantScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: restaurant?.image }} style={styles.image} />

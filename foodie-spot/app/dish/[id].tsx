@@ -8,12 +8,14 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator
 import { Image } from "expo-image";
 import { ArrowLeft, Minus, Plus } from "lucide-react-native";
 import { useCart } from '@/contexts/cart-context';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function DishScreen() {
-     const { id, restaurantId } = useLocalSearchParams<{ id: string; restaurantId: string }>();
+    const { id, restaurantId } = useLocalSearchParams<{ id: string; restaurantId: string }>();
     const [dish, setDish] = useState<Dish | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
     const [loading, setLoading] = useState(true);
+    const { colors } = useTheme();
 
     // récupérer restaurantId depuis les paramètres de navigation
    
@@ -55,7 +57,7 @@ if (!dish) {
     );
 }
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.imageWrapper}>
                     <Image source={{ uri: dish.image }} style={styles.image} />
