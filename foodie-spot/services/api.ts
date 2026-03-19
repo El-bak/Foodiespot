@@ -195,6 +195,15 @@ export const restaurantAPI = {
             return [];
        }
     },
+
+    async getReviews(restaurantId: string): Promise<any[]> {
+        try {
+            const response = await api.get(`/restaurants/${restaurantId}/reviews`); 
+            return response.data?.data ?? [];
+        } catch {
+            return [];
+        }
+    },
 }
 
 export const userAPI = {

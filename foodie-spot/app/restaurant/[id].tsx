@@ -18,6 +18,9 @@ export default function RestaurantScreen() {
     const [loading, setLoading] = useState(true);
     const { addItem } = useCart();
     const { colors } = useTheme();
+    const [reviews, setReviews] = useState<any[]>([]);
+
+
 
     useEffect(() => {
         loadRestaurant();
@@ -27,6 +30,8 @@ export default function RestaurantScreen() {
         try {
             const restaurantData = await restaurantAPI.getRestaurantById(id);
             const menuData = await restaurantAPI.getMenu(id);
+            const reviewsData = await restaurantAPI.getReviews(id);
+            setReviews(reviewsData);
             setRestaurant(restaurantData);
             setMenu(menuData);
             setIsFavorite(restaurantData?.isFavorite || false);
@@ -143,6 +148,24 @@ export default function RestaurantScreen() {
                         />
                         ))}  
                 </View>
+
+                {/* avis des clients */}
+                {reviews.length > 0 && (
+                    <View style={styles.reviewsSection}>
+                        <Text style={styles.menuTitle}>Avis clients</Text>
+                        {reviews.slice(0, 3).map((review: any) => (
+                            <View key={review.id} style={styles.reviewCard}>
+                                <View style={styles.reviewHeader}>
+                                    <Text style={styles.reviewUser}>{review.userName}</Text>
+                                    <Text style={styles.reviewRating}>{'⭐'.repeat(review.rating)}</Text>
+                                </View>
+                                {review.comment ? (
+                                    <Text style={styles.reviewComment}>{review.comment}</Text>
+                                ) : null}
+                            </View>
+                        ))}
+                    </View>
+                )}
 
 
             </ScrollView>
@@ -261,5 +284,30 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 16,
-    }
+    },
+    reviewsSection: {
+        padding: 16,
+    },
+    reviewCard: {
+        backgroundColor: '#f9f9f9',
+        borderRadius: 10,
+        padding: 12,
+        marginBottom: 10,
+    },
+    reviewHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 6,
+    },
+    reviewUser: {
+        fontWeight: '600',
+        color: '#333',
+    },
+    reviewRating: {
+        fontSize: 12,
+    },
+    reviewComment: {
+        color: '#666',
+        fontSize: 13,
+    },
 });
