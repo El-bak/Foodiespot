@@ -6,9 +6,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 interface Props {
     dish: Dish;
     onPress?: () => void;
+    onAddToCart?: () => void;
 }
 
-export const DishCard: React.FC<Props> = ({ dish, onPress }) => {
+export const DishCard: React.FC<Props> = ({ dish, onPress, onAddToCart }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
             <View style={styles.imageContainer}>
@@ -19,9 +20,18 @@ export const DishCard: React.FC<Props> = ({ dish, onPress }) => {
                 <Text style={styles.description} numberOfLines={2}>{dish.description}</Text>
                 <Text style={styles.price}>{dish.price} €</Text>
             </View>
-            <View style={styles.addButton}>
+            
+            
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={(e) => {
+                    e.stopPropagation();
+                    if (onAddToCart) onAddToCart();
+                    else if (onPress) onPress();
+                }}
+            >
                 <Plus size={16} color="#fff" />
-            </View>
+            </TouchableOpacity>
         </TouchableOpacity>
     );
 }

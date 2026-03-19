@@ -13,8 +13,17 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 2. Start the app
 
    ```bash
-   npx expo start
-   ```
+   npx expo start ```
+ 
+ Mais avant de faire npx expo start, il faut d'abord aller dans constants/config.ts : 
+ API_URL: 'http://192.168.1.91:4000/', tu remplace 92.168.1.91 par ton IP locale.
+ Pour trouver ton IP locale, tu dois chercher avec 'ipconfig' sur Windows ou 'ifconfig' sur Mac.
+
+3. Ce que j'ai corrigé:
+
+Voici les bugs que j'ai trouvés et corrigés : 
+
+- 'resurantId' dans types/index.ts devait etre 'restaurantId'
 
 In the output, you'll find options to open the app in a
 

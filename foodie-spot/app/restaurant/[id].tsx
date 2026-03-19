@@ -1,3 +1,4 @@
+// app/restaurant/[id].tsx
 import { useEffect, useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator} from "react-native";
 import { Dish, Restaurant } from "@/types";
@@ -7,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { ArrowLeft, Clock, Heart, MapPin, Navigation, Phone, Share2, Star } from "lucide-react-native";
 import { DishCard } from "@/components/dish-card";
+import { useCart } from '@/contexts/cart-context';
 
 export default function RestaurantScreen() {
     const { id } = useLocalSearchParams<{ id: string }>();
@@ -14,6 +16,7 @@ export default function RestaurantScreen() {
     const [menu, setMenu] = useState<Dish[]>([]);
     const [isFavorite, setIsFavorite] = useState(false);
     const [loading, setLoading] = useState(true);
+    const { addItem } = useCart();
 
     useEffect(() => {
         loadRestaurant();
@@ -40,17 +43,20 @@ export default function RestaurantScreen() {
     };
 
     const handleShare = () => {
+
         // partager le restaurant - pour l'instant on affiche juste une alerte
         Alert.alert('Partager', `Découvrez ${restaurant?.name} sur FoodieSpot !`);
     };
 
     const handleDirections = () => {
+
         // ouvrir l'application maps avec l'adresse du restaurant
         const address = encodeURIComponent(restaurant?.address || '');
         Linking.openURL(`https://maps.google.com/?q=${address}`);
     };
 
     const handleCall = () => {
+        
         // appeler le restaurant si le numéro est disponible
         if (restaurant?.phone) {
            Linking.openURL(`tel:${restaurant.phone}`);
@@ -128,7 +134,12 @@ export default function RestaurantScreen() {
                 <View style={styles.menu}>
                     <Text style={styles.menuTitle}>Menu</Text>
                     {menu.map((dish) => (
-                        <DishCard key={dish.id} dish={dish} onPress={() => router.push(`/dish/${dish.id}?restaurantId=${id}`)} />
+                        <DishCard key={dish.id} dish={dish} onPress={() => router.push(`/dish/${dish.id}?restaurantId=${id}`)} 
+                          onAddToCart={() => {
+                              addItem(dish, id);
+                              router.push('/cart');
+                         }}
+                        />
                         ))}  
                 </View>
 
@@ -136,6 +147,8 @@ export default function RestaurantScreen() {
             </ScrollView>
         </SafeAreaView>
     );
+    
+
 }
 
 const styles = StyleSheet.create({

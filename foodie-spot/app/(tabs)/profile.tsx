@@ -1,3 +1,4 @@
+// app/(tabs)/profile.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,11 +17,11 @@ export default function ProfileScreen() {
 
   const toast = useToast();
   const [user, setUser] = useState<User | null>(null);
-  const { logout } = useAuth();
+  const { user: authUser,logout } = useAuth();
   const [orderCount, setOrderCount] = useState(0);
   const { themeMode, setThemeMode, colors, isDark } = useTheme();
 
-
+  
   useEffect(() => {
      loadUser();
 
@@ -95,14 +96,14 @@ export default function ProfileScreen() {
                 <Image source={{ uri: user.photo }} style={styles.avatar} />
               ) : (
                 <View style={styles.avatarPlaceholder}>
-                  <Text style={styles.avatarText}>{user.name.charAt(0).toUpperCase()}</Text>
+                  <Text style={styles.avatarText}>{(user.firstName || user.email || '?').charAt(0).toUpperCase()}</Text>
                 </View>
               )}
               <TouchableOpacity style={styles.cameraButton} onPress={handlePickImage}>
                 <Camera size={14} color="#fff" />
               </TouchableOpacity>
             </View>
-            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.name}>{user.firstName} {user.lastName}</Text>
             <Text style={styles.email}>{user.email}</Text>
             <Text style={styles.phone}>{user.phone}</Text>
           </View>

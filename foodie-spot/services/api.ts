@@ -1,3 +1,4 @@
+// services/api.ts
 import { cache } from '@/services/cache';
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
@@ -214,8 +215,18 @@ export const userAPI = {
     },
 
     async getCurrentUser(): Promise<User | null> {
-        return await storage.getItem(STORAGE_KEYS.USER);
+        //return await storage.getItem(STORAGE_KEYS.USER);
+        try {
+            const { auth: athService } = await import('./auth');
+            const user = await athService.getStoredUser();
+            if (user) return user as User; /*return est souligné en rouge sur cette ligne*/
+        } catch {}
+
+        return storage.getItem<User>(STORAGE_KEYS.USER);
+        
     },
+
+    
 
     async toggleFavorite(restaurantId: string): Promise<void> {
 

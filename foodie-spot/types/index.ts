@@ -48,10 +48,13 @@ export interface CartItem {
 
 export interface User {
     id: string;
+    firstName: string;
+    lastName: string;
     name: string;
     email: string;
     phone: string;
     photo?: string;
+    avatar?: string;
     addresses: Address[];
     favoriteRestaurants: string[];
 }

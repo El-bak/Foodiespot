@@ -1,3 +1,4 @@
+// app/(tabs)/index.tsx
 import { MapPin, Search } from 'lucide-react-native';
 import { Alert, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 
@@ -10,12 +11,14 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [location, setLocation] = useState<string>('Locating...');
   const [promo, setPromo] = useState<{ title: string; code: string } | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch restaurants data
@@ -35,7 +38,8 @@ export default function HomeScreen() {
             setPromo({ title: p.description, code: p.code });
         }
     } catch (error) {
-      // log.error("Failed to load restaurants", error);
+
+      //log.error("Failed to load restaurants", error);
       Alert.alert("Error", "Failed to load restaurants");
     }
     finally {
@@ -59,6 +63,19 @@ export default function HomeScreen() {
     await loadData();
     setRefreshing(false);
   };
+
+  const handleCategorySelect = async (category: string | null) => {
+    setSelectedCategory(category);
+    setLoading(true);
+    try {
+        const data = await restaurantAPI.getRestaurants(
+            category ? { cuisine: category } : undefined
+        );
+        setRestaurants(data);
+    } finally {
+        setLoading(false);
+    }
+ };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -95,7 +112,10 @@ export default function HomeScreen() {
                 <Text style={styles.promoCode}>Code: {promo.code}</Text>
             </View>
         )}
-        <CategoryList />
+        <CategoryList 
+            onSelectCategory={handleCategorySelect} 
+            selectedCategory={selectedCategory}
+         />
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>À proximité</Text>
         </View>
@@ -160,7 +180,7 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.5)',
   },
   content : {
-    flex: 1,
+    paddingBottom: 16,
   },
   promoBanner: {
     margin: 16,
