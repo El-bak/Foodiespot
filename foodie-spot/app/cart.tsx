@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { ArrowLeft, Minus, Plus, Trash2 } from "lucide-react-native";
 import { useCart } from "@/contexts/cart-context";
 import { CartItem } from "@/types";
+import { useLanguage } from '@/contexts/language-context';
 
 export default function CartScreen() {
     const { items, removeItem, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
@@ -12,6 +13,7 @@ export default function CartScreen() {
     // Cela c'est pour les frais de livraison - gratuit au dessus de 25€
     const deliveryFee = totalPrice >= 25 ? 0 : 2.99;
     const total = totalPrice + deliveryFee;
+    const { t } = useLanguage();
 
     const handleClearCart = () => {
         Alert.alert(
@@ -91,13 +93,13 @@ export default function CartScreen() {
                     {/* Cela c'est pour le résumé de la commande */}
                     <View style={styles.summary}>
                         <View style={styles.summaryRow}>
-                            <Text style={styles.summaryLabel}>Sous-total</Text>
+                            <Text style={styles.summaryLabel}>{t.subtotal}</Text>
                             <Text style={styles.summaryValue}>{totalPrice.toFixed(2)} €</Text>
                         </View>
                         <View style={styles.summaryRow}>
-                            <Text style={styles.summaryLabel}>Livraison</Text>
+                            <Text style={styles.summaryLabel}>{t.delivery}</Text>
                             <Text style={[styles.summaryValue, deliveryFee === 0 && styles.freeDelivery]}>
-                                {deliveryFee === 0 ? 'Gratuite' : `${deliveryFee.toFixed(2)} €`}
+                                {deliveryFee === 0 ? t.freeDelivery : `${deliveryFee.toFixed(2)} €`}
                             </Text>
                         </View>
                         {deliveryFee > 0 && (
@@ -106,7 +108,7 @@ export default function CartScreen() {
                             </Text>
                         )}
                         <View style={[styles.summaryRow, styles.totalRow]}>
-                            <Text style={styles.totalLabel}>Total</Text>
+                            <Text style={styles.totalLabel}>{t.total}</Text>
                             <Text style={styles.totalValue}>{total.toFixed(2)} €</Text>
                         </View>
 

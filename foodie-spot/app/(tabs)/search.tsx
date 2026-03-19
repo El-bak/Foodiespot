@@ -10,6 +10,7 @@ import { Filter, Search } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { storage, STORAGE_KEYS } from '@/services/storage';
 import { useTheme } from '@/contexts/theme-context';
+import { useLanguage } from '@/contexts/language-context';
 
 export default function SearchScreen() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function SearchScreen() {
     const [filters, setFilters] = useState<SearchFilters>({});
     const [showFilters, setShowFilters] = useState(false);
     const { colors } = useTheme();
+    const { t } = useLanguage();
 
     // ref pour stocker le timer du debounce
     const debounceTimer = useRef<any>(null);
@@ -75,7 +77,7 @@ useEffect(() => {
                     <Search size={24} color={Colors.light.text} />
                     <TextInput
                         style={styles.searchInput}
-                        placeholder="Rechercher un restaurant"
+                        placeholder={t.searchPlaceholder}
                         value={query}
                         onChangeText={setQuery}
                     />
@@ -105,7 +107,7 @@ useEffect(() => {
             {/* recherches récentes - visible seulement si le champ est vide */}
             {query === '' && recentSearches.length > 0 && (
                <View style={styles.recentSection}>
-                   <Text style={styles.recentTitle}>Recherches récentes</Text>
+                   <Text style={styles.recentTitle}>{t.recentSearches}</Text>
                    {recentSearches.map((search, index) => (
                        <TouchableOpacity
                            key={index}
@@ -124,7 +126,7 @@ useEffect(() => {
     style={styles.content}
     ListHeaderComponent={
         <Text style={styles.resultsText}>
-            {restaurants.length} {restaurants.length > 1 ? 'restaurants' : 'restaurant'} trouvés
+            {restaurants.length} {t.restaurantsFound}
         </Text>
     }
     renderItem={({ item }) => (
@@ -134,7 +136,7 @@ useEffect(() => {
         />
     )}
     ListEmptyComponent={
-        <Text style={styles.emptyText}>Aucun résultat</Text>
+        <Text style={styles.emptyText}>{t.noResults}</Text>
     }
 />
         </SafeAreaView>

@@ -6,6 +6,7 @@ import { ArrowLeft, Star, Camera } from "lucide-react-native";
 import * as ImagePicker from 'expo-image-picker';
 import api from "@/services/api";
 import { useTheme } from '@/contexts/theme-context';
+import { useLanguage } from '@/contexts/language-context';
 
 export default function ReviewScreen() {
     const { orderId, restaurantId } = useLocalSearchParams<{
@@ -22,6 +23,7 @@ export default function ReviewScreen() {
     const [qualityRating, setQualityRating] = useState(0);
     const [speedRating, setSpeedRating] = useState(0);
     const [presentationRating, setPresentationRating] = useState(0);
+    const { t } = useLanguage();
 
     const handleAddPhoto = async () => {
 
@@ -109,14 +111,14 @@ export default function ReviewScreen() {
                 <TouchableOpacity onPress={() => router.back()}>
                     <ArrowLeft size={24} color="#333" />
                 </TouchableOpacity>
-                <Text style={[styles.title, { color: colors.text }]}>Laisser un avis</Text>
+                <Text style={[styles.title, { color: colors.text }]}>{t.leaveReview}</Text>
                 <View style={{ width: 24 }} />
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
                 {/* note globale */}
                 <View style={[styles.section, { backgroundColor: colors.card }]}>
-                    <Text style={[styles.sectionTitle, { color: colors.text }]}>Note globale</Text>
+                    <Text style={[styles.sectionTitle, { color: colors.text }]}>{t.globalRating}</Text>
                     <StarRating value={rating} onChange={setRating} size={40} />
                     {rating > 0 && (
                         <Text style={styles.ratingText}>
@@ -131,27 +133,27 @@ export default function ReviewScreen() {
 
                 {/* sous-notes par critère */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Notes par critère (optionnel)</Text>
+                    <Text style={styles.sectionTitle}>{t.criteriaRating}</Text>
 
                     <View style={styles.criteriaRow}>
-                        <Text style={styles.criteriaLabel}>Qualité</Text>
+                       <Text style={styles.criteriaLabel}>{t.quality}</Text>
                         <StarRating value={qualityRating} onChange={setQualityRating} size={24} />
                     </View>
 
                     <View style={styles.criteriaRow}>
-                        <Text style={styles.criteriaLabel}>Rapidité</Text>
+                        <Text style={styles.criteriaLabel}>{t.speed}</Text>
                         <StarRating value={speedRating} onChange={setSpeedRating} size={24} />
                     </View>
 
                     <View style={styles.criteriaRow}>
-                        <Text style={styles.criteriaLabel}>Présentation</Text>
+                        <Text style={styles.criteriaLabel}>{t.presentation}</Text>
                         <StarRating value={presentationRating} onChange={setPresentationRating} size={24} />
                     </View>
                 </View>
 
                 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Photos (optionnel)</Text>
+                    <Text style={styles.sectionTitle}>{t.photosOptional}</Text>
                     <View style={styles.photosRow}>
                         {photos.map((uri, index) => (
                             <View key={index} style={styles.photoWrapper}>
@@ -175,7 +177,7 @@ export default function ReviewScreen() {
 
                 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Commentaire (optionnel)</Text>
+                    <Text style={styles.sectionTitle}>{t.commentOptional}</Text>
                     <TextInput
                         style={styles.commentInput}
                         placeholder="Partagez votre expérience..."
@@ -197,7 +199,7 @@ export default function ReviewScreen() {
                 >
                     {loading
                         ? <ActivityIndicator color="#fff" />
-                        : <Text style={styles.submitButtonText}>Publier mon avis</Text>
+                        : <Text style={styles.submitButtonText}>{t.publishReview}</Text>
                     }
                 </TouchableOpacity>
             </View>

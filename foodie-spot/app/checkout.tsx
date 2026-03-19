@@ -1,4 +1,3 @@
-// app/checkout.tsx
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +6,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { useCart } from "@/contexts/cart-context";
 import { useAuth } from "@/contexts/auth-context";
 import api, { userAPI, orderAPI, } from "@/services/api";
-
+import { useLanguage } from '@/contexts/language-context';
 
 export default function CheckoutScreen() {
     const { items, restaurantId, totalPrice, clearCart } = useCart();
@@ -25,6 +24,7 @@ export default function CheckoutScreen() {
     const total = totalPrice + deliveryFee - discount;
     const [addresses, setAddresses] = useState<any[]>([]);
     const [selectedAddress, setSelectedAddress] = useState<any>(null);
+    const { t } = useLanguage();
 
     useEffect(() => { 
         userAPI.getAddresses().then(addrs => { 
@@ -89,6 +89,8 @@ export default function CheckoutScreen() {
                 subtotal: totalPrice,
             });
             const result = response.data?.data;
+
+            
             setPromoResult({
                 discount: result.discountAmount,
                 message: result.message || 'Code promo appliqué !',
@@ -109,15 +111,16 @@ export default function CheckoutScreen() {
                 <TouchableOpacity onPress={() => router.back()}>
                     <ArrowLeft size={24} color="#333" />
                 </TouchableOpacity>
-                <Text style={styles.title}>Confirmer la commande</Text>
+                <Text style={styles.title}>{t.confirmOrder}</Text>
                 <View style={{ width: 24 }} />
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
 
-                {/* adresse de livraison */}
+                
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Adresse de livraison</Text>
+                <Text style={styles.sectionTitle}>{t.deliveryAddress}</Text>
+
                 {addresses.length === 0 ? (
                     <Text style={styles.noAddress}>
                         Aucune adresse — ajoutez-en une dans votre profil
@@ -139,9 +142,9 @@ export default function CheckoutScreen() {
     )}
 </View>
 
-                {/* récapitulatif */}
+                
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Récapitulatif</Text>
+                    <Text style={styles.sectionTitle}>{t.summary}</Text>
                     {items.map(item => (
                         <View key={item.dish.id} style={styles.orderItem}>
                             <Text style={styles.orderItemName}>
@@ -156,7 +159,7 @@ export default function CheckoutScreen() {
                 
                 {/* code promo */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Code promo</Text>
+                    <Text style={styles.sectionTitle}>{t.promoCode}</Text>
                     <View style={styles.promoRow}>
                         <TextInput
                             style={styles.promoInput}
@@ -188,16 +191,17 @@ export default function CheckoutScreen() {
                         </Text>
                     )}
                 </View>
+
                 {/* total */}
                 <View style={styles.section}>
                     <View style={styles.totalRow}>
-                        <Text style={styles.totalLabel}>Sous-total</Text>
+                        <Text style={styles.totalLabel}>{t.subtotal}</Text>
                         <Text style={styles.totalValue}>{totalPrice.toFixed(2)} €</Text>
                     </View>
                     <View style={styles.totalRow}>
-                        <Text style={styles.totalLabel}>Livraison</Text>
+                        <Text style={styles.totalLabel}>{t.delivery}</Text>
                         <Text style={[styles.totalValue, deliveryFee === 0 && styles.free]}>
-                            {deliveryFee === 0 ? 'Gratuite' : `${deliveryFee.toFixed(2)} €`}
+                            {deliveryFee === 0 ? t.freeDelivery : `${deliveryFee.toFixed(2)} €`}
                         </Text>
                     </View>
                     {discount > 0 && (
@@ -207,7 +211,7 @@ export default function CheckoutScreen() {
                         </View> 
                     )}
                     <View style={[styles.totalRow, styles.grandTotalRow]}>
-                        <Text style={styles.grandTotalLabel}>Total</Text>
+                        <Text style={styles.grandTotalLabel}>{t.total}</Text>
                         <Text style={styles.grandTotalValue}>{total.toFixed(2)} €</Text>
                     </View>
                 </View>
@@ -223,7 +227,7 @@ export default function CheckoutScreen() {
                     {loading
                         ? <ActivityIndicator color="#fff" />
                         : <Text style={styles.confirmButtonText}>
-                            Confirmer et payer {total.toFixed(2)} €
+                            {t.confirmPay} {total.toFixed(2)} €
                           </Text>
                     }
                 </TouchableOpacity>

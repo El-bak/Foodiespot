@@ -5,11 +5,13 @@ import { ScrollView, StyleSheet, Text, View, ActivityIndicator, TouchableOpacity
 import { Order } from "@/types";
 import { orderAPI } from "@/services/api";
 import { ArrowLeft } from "lucide-react-native";
+import { useLanguage } from '@/contexts/language-context';
 
 export default function TrackingScreen() {
     const { orderId } = useLocalSearchParams<{ orderId: string }>();
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
+    const { t } = useLanguage();
     
     // Cela va pouvoir permettre de stocker l'interval du polling
     const intervalRef = useRef<any>(null);
@@ -81,7 +83,7 @@ export default function TrackingScreen() {
             {/* C'est le bouton retour */}
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
                 <ArrowLeft size={24} color="#333" />
-                <Text style={styles.backText}>Retour</Text>
+                <Text style={styles.backText}>{t.back}</Text>
             </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.content}>

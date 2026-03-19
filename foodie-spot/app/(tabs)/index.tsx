@@ -1,4 +1,3 @@
-// app/(tabs)/index.tsx
 import { MapPin, Search } from 'lucide-react-native';
 import { Alert, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 
@@ -11,7 +10,7 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@/contexts/theme-context';
-
+import { useLanguage } from '@/contexts/language-context';
 
 export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -21,6 +20,7 @@ export default function HomeScreen() {
   const [promo, setPromo] = useState<{ title: string; code: string } | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { colors } = useTheme();
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Fetch restaurants data
@@ -85,14 +85,14 @@ export default function HomeScreen() {
         <View style={styles.locationContainer}>
           <MapPin size={20} color="#fff" />
           <View style= {{ flex: 1}}>
-            <Text style={styles.locationLabel}>Livraison à </Text>
+            <Text style={styles.locationLabel}>{t.deliveryTo}</Text>
             <Text style={styles.locationText} numberOfLines={1}>{location}</Text>
           </View>
         </View>
 
         <TouchableOpacity style={styles.searchBar} onPress={() => router.push('/(tabs)/search')}>
         <Search size={20} color="#666" />
-        <Text style={styles.searchPlaceholder}>Rechercher un restaurant...</Text>
+        <Text style={styles.searchPlaceholder}>{t.searchPlaceholder}</Text>
         </TouchableOpacity>
       </View>
 
@@ -109,7 +109,7 @@ export default function HomeScreen() {
     <>
         {promo && (
             <View style={styles.promoBanner}>
-                <Text style={styles.promoLabel}>Offre spéciale</Text>
+                <Text style={styles.promoLabel}>{t.specialOffer}</Text>
                 <Text style={styles.promoTitle}>{promo.title}</Text>
                 <Text style={styles.promoCode}>Code: {promo.code}</Text>
             </View>
@@ -119,7 +119,7 @@ export default function HomeScreen() {
             selectedCategory={selectedCategory}
          />
         <View style={styles.section}>
-            <Text style={styles.sectionTitle}>À proximité</Text>
+            <Text style={styles.sectionTitle}>{t.nearbyTitle}</Text>
         </View>
     </>
 }
@@ -131,7 +131,7 @@ export default function HomeScreen() {
         />
     )}
     ListEmptyComponent={
-        !loading ? <Text style={styles.emptyText}>Aucun restaurant trouvé</Text> : null
+        !loading ? <Text style={styles.emptyText}>{t.noRestaurant}</Text> : null
     }
     contentContainerStyle={styles.content}
 />
