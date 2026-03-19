@@ -5,6 +5,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { ArrowLeft, Star, Camera } from "lucide-react-native";
 import * as ImagePicker from 'expo-image-picker';
 import api from "@/services/api";
+import { useTheme } from '@/contexts/theme-context';
 
 export default function ReviewScreen() {
     const { orderId, restaurantId } = useLocalSearchParams<{
@@ -16,7 +17,7 @@ export default function ReviewScreen() {
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
     const [photos, setPhotos] = useState<string[]>([]);
-
+    const { colors } = useTheme();
   
     const [qualityRating, setQualityRating] = useState(0);
     const [speedRating, setSpeedRating] = useState(0);
@@ -103,19 +104,19 @@ export default function ReviewScreen() {
     );
 
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
-            <View style={styles.header}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
+            <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
                 <TouchableOpacity onPress={() => router.back()}>
                     <ArrowLeft size={24} color="#333" />
                 </TouchableOpacity>
-                <Text style={styles.title}>Laisser un avis</Text>
+                <Text style={[styles.title, { color: colors.text }]}>Laisser un avis</Text>
                 <View style={{ width: 24 }} />
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
                 {/* note globale */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Note globale</Text>
+                <View style={[styles.section, { backgroundColor: colors.card }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.text }]}>Note globale</Text>
                     <StarRating value={rating} onChange={setRating} size={40} />
                     {rating > 0 && (
                         <Text style={styles.ratingText}>

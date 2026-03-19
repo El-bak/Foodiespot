@@ -3,13 +3,18 @@ import { orderAPI } from "@/services/api";
 import { Order } from "@/types";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from '@/contexts/theme-context';
+import { useLanguage } from '@/contexts/language-context';
 
 export default function OrdersScreen() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
+    const [activeTab, setActiveTab] = useState<'all' | 'active' | 'delivered' | 'cancelled'>('all');
+    const { colors } = useTheme();
+    const { t } = useLanguage();
 
     useEffect(() => {
         loadOrders();
@@ -30,18 +35,54 @@ export default function OrdersScreen() {
         setRefreshing(false);
     }
 
+    const getFilteredOrders = () => {
+        switch (activeTab) {
+            case 'active':
+               return orders.filter(o =>
+                   ['pending', 'confirmed', 'preparing', 'ready', 'picked_up', 'delivering', 'on-the-way'].includes(o.status)
+               );
+           case 'delivered':
+               return orders.filter(o => o.status === 'delivered');
+           case 'cancelled':
+               return orders.filter(o => o.status === 'cancelled');
+           default:
+               return orders;
+        }
+    };
+
 
     return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-        <View style={styles.header}>
-            <Text style={styles.title}>Mes Commandes</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top']}>
+        <View style={[styles.header, { backgroundColor: colors.background }]}>
+            <Text style={[styles.title, { color: colors.text }]}>{t.myOrders}</Text>
+        </View>
+
+        
+        <View style={[styles.tabs, { backgroundColor: colors.card }]}>
+            {[
+                { key: 'all', label: t.tabAll },
+                { key: 'active', label: t.tabActive },
+                { key: 'delivered', label: t.tabDelivered },
+                { key: 'cancelled', label: t.tabCancelled },
+            ].map(tab => (
+
+                <TouchableOpacity
+                    key={tab.key}
+                    style={[styles.tab, activeTab === tab.key && styles.tabActive]}
+                    onPress={() => setActiveTab(tab.key as any)}
+                >
+                    <Text style={[styles.tabText, activeTab === tab.key && styles.tabTextActive]}>
+                        {tab.label}
+                    </Text>
+                </TouchableOpacity>
+            ))}
         </View>
 
         {loading ? (
             <ActivityIndicator size="large" color="#FF6B35" style={{ marginTop: 40 }} />
         ) : (
             <FlatList
-                data={orders}
+                data={getFilteredOrders()}
                 keyExtractor={(item) => item.id}
                 style={styles.content}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
@@ -60,7 +101,7 @@ export default function OrdersScreen() {
                 ListEmptyComponent={
                     <View style={styles.emptyState}>
                         <Text style={styles.emptyIcon}>🛍️</Text>
-                        <Text style={styles.emptyText}>Aucune commande trouvée.</Text>
+                        <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t.noOrders}</Text>
                     </View>
                 }
             />
@@ -99,5 +140,28 @@ const styles = StyleSheet.create({
     emptyText: {
         fontSize: 16,
         color: '#999',
-    }
+    },
+    tabs: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
+    },
+    tab: {
+        flex: 1,
+        paddingVertical: 12,
+        alignItems: 'center',
+    },
+    tabActive: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#FF6B35',
+    },
+    tabText: {
+        fontSize: 13,
+        color: '#999',
+    },
+    tabTextActive: {
+        color: '#FF6B35',
+        fontWeight: '600',
+    },
 });

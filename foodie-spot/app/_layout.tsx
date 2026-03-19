@@ -16,6 +16,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { ThemeProvider as AppThemeProvider } from '@/contexts/theme-context'; 
 import { storage } from '@/services/storage';
+import { LanguageProvider } from '@/contexts/language-context';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -127,9 +128,11 @@ export default function RootLayout() {
         <ToastProvider>
         <AuthProvider>
           <CartProvider>
+            <LanguageProvider>
             <AppThemeProvider>
               <RootLayoutContent />
             </AppThemeProvider>
+            </LanguageProvider>
           </CartProvider>
         </AuthProvider>
         </ToastProvider>

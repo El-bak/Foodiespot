@@ -10,7 +10,7 @@ export default function TrackingScreen() {
     const { orderId } = useLocalSearchParams<{ orderId: string }>();
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
-
+    
     // Cela va pouvoir permettre de stocker l'interval du polling
     const intervalRef = useRef<any>(null);
 

@@ -1,10 +1,10 @@
-// app/(tabs)/profile.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { MapPin, Heart, ShoppingBag, Phone, Share2, Camera, ChevronRight, LogOut } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useLanguage } from '@/contexts/language-context';
 
 import { userAPI, uploadAPI, orderAPI } from '@/services/api';
 import type { User } from '@/types';
@@ -23,7 +23,8 @@ export default function ProfileScreen() {
   const [orderCount, setOrderCount] = useState(0);
   const { themeMode, setThemeMode, colors, isDark } = useTheme();
   const [favoriteCount, setFavoriteCount] = useState(0);
-  const [addressCount, setAddressCount] = useState(0)
+  const [addressCount, setAddressCount] = useState(0);
+  const { language, setLanguage, t } = useLanguage();
   
   
   // remplace les deux useEffect par celui-ci
@@ -131,25 +132,44 @@ export default function ProfileScreen() {
         <View style={styles.stats}>
           <View style={styles.statItem}>
             <Text style={styles.statValue}>{orderCount}</Text>
-            <Text style={styles.statLabel}>Commandes</Text>
+            <Text style={styles.statLabel}>{t.orders}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
             <Text style={styles.statValue}>{favoriteCount}</Text>
-            <Text style={styles.statLabel}>Favoris</Text>
+            <Text style={styles.statLabel}>{t.favorites}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
             <Text style={styles.statValue}>0</Text>
-            <Text style={styles.statLabel}>Avis</Text>
+            <Text style={styles.statLabel}>{t.reviews}</Text>
           </View>
+        </View>
+
+        <View style={styles.menuItem}>
+            <Text style={styles.menuText}>Langue</Text>
+            <View style={styles.menuRight}>
+                <TouchableOpacity
+                    style={[styles.themeBtn, language === 'fr' && styles.themeBtnActive]}
+                    onPress={() => setLanguage('fr')}
+                >
+                    <Text style={styles.themeBtnText}>🇫🇷</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.themeBtn, language === 'en' && styles.themeBtnActive]}
+                    onPress={() => setLanguage('en')}
+                >
+                    <Text style={styles.themeBtnText}>🇬🇧</Text>
+                </TouchableOpacity>
+            </View>
         </View>
 
         <View style={styles.menu}>
           <TouchableOpacity style={styles.menuItem} 
                onPress={() => router.push('/addresses')}>
               <MapPin size={20} color="#666" />
-              <Text style={styles.menuText}>Mes adresses</Text>
+              <Text style={styles.menuText}>{t.myAddresses}</Text>
+
             <View style={styles.menuRight}>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{addressCount}</Text>
@@ -160,7 +180,7 @@ export default function ProfileScreen() {
 
           <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('Favoris', 'Cette fonctionnalité arrive bientôt')}>
             <Heart size={20} color="#666" />
-            <Text style={styles.menuText}>Mes favoris</Text>
+            <Text style={styles.menuText}>{t.myFavorites}</Text>
             <View style={styles.menuRight}>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>{favoriteCount}</Text>
@@ -171,24 +191,24 @@ export default function ProfileScreen() {
 
           <TouchableOpacity style={styles.menuItem} onPress={() => router.push('/(tabs)/orders')}>
             <ShoppingBag size={20} color="#666" />
-            <Text style={styles.menuText}>Historique</Text>
+            <Text style={styles.menuText}>{t.history}</Text>
             <ChevronRight size={18} color="#ccc" />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem}>
             <Phone size={20} color="#666" />
-            <Text style={styles.menuText}>Support</Text>
+            <Text style={styles.menuText}>{t.support}</Text>
             <ChevronRight size={18} color="#ccc" />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem}>
             <Share2 size={20} color="#666" />
-            <Text style={styles.menuText}>Partager app</Text>
+            <Text style={styles.menuText}>{t.shareApp}</Text>
             <ChevronRight size={18} color="#ccc" />
           </TouchableOpacity>
 
           <View style={styles.menuItem}>
-              <Text style={styles.menuText}>Apparence</Text>
+              <Text style={styles.menuText}>{t.appearance}</Text>
               <View style={styles.menuRight}>
 
                   <TouchableOpacity
@@ -216,7 +236,7 @@ export default function ProfileScreen() {
 
            <TouchableOpacity style={[styles.menuItem, styles.logoutItem]} onPress={handleLogout}>
                <LogOut size={20} color="#FF6B35" />
-               <Text style={[styles.menuText, styles.logoutText]}>Déconnexion</Text>
+               <Text style={[styles.menuText, styles.logoutText]}>{t.logout}</Text>
            </TouchableOpacity>
 
         </View>
