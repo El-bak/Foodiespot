@@ -69,6 +69,7 @@ export const translations = {
         delete: 'Supprimer',
         back: 'Retour',
         loading: 'Chargement...',
+        paymentMethod: 'Mode de paiement',
     },
     en: {
         // Home
@@ -137,5 +138,7 @@ export const translations = {
         delete: 'Delete',
         back: 'Back',
         loading: 'Loading...',
+        paymentMethod: 'Payment method',
+
     }
 };

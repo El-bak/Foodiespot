@@ -25,6 +25,7 @@ export default function CheckoutScreen() {
     const [addresses, setAddresses] = useState<any[]>([]);
     const [selectedAddress, setSelectedAddress] = useState<any>(null);
     const { t } = useLanguage();
+    const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'applepay'>('card');
 
     useEffect(() => { 
         userAPI.getAddresses().then(addrs => { 
@@ -61,7 +62,7 @@ export default function CheckoutScreen() {
                 restaurantId,
                 items: orderItems,
                 deliveryAddress: selectedAddress,
-                paymentMethod: 'card',
+                paymentMethod: paymentMethod,
             });
 
             clearCart();
@@ -140,9 +141,9 @@ export default function CheckoutScreen() {
                                 <Text style={styles.addressSelected}>✓ Sélectionnée</Text>
                             )}
                         </TouchableOpacity>
-        ))
-    )}
-</View>
+                    ))
+                )}
+            </View>
 
                 
                 <View style={styles.section}>
@@ -192,6 +193,35 @@ export default function CheckoutScreen() {
                                {promoResult.message} {promoResult.discount > 0 ? ` (-${promoResult.discount.toFixed(2)} €)` : ''}
                         </Text>
                     )}
+                </View>
+
+                {/* mode de paiement */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>{t.paymentMethod}</Text>
+                    {[
+                        { key: 'card', label: '💳 Carte bancaire' },
+                        { key: 'paypal', label: '🅿️ PayPal' },
+                        { key: 'applepay', label: ' Apple Pay' },
+                    ].map(method => (
+                        <TouchableOpacity
+                            key={method.key}
+                            style={[
+                                styles.paymentOption,
+                                paymentMethod === method.key && styles.paymentOptionSelected
+                            ]}
+                            onPress={() => setPaymentMethod(method.key as any)}
+                        >
+                            <Text style={[
+                                styles.paymentOptionText,
+                                paymentMethod === method.key && styles.paymentOptionTextSelected
+                            ]}>
+                            {method.label}
+                            </Text>
+                            {paymentMethod === method.key && (
+                                <Text style={styles.paymentCheck}>✓</Text>
+                            )}
+                        </TouchableOpacity>
+                    ))}
                 </View>
 
                 {/* total */}
@@ -399,5 +429,33 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: '600',
         marginTop: 4,
+    },
+    paymentOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#f9f9f9',
+        borderRadius: 8,
+        padding: 14,
+        marginBottom: 8,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    paymentOptionSelected: {
+        borderColor: '#FF6B35',
+        backgroundColor: '#FFF4EF',
+    },
+    paymentOptionText: {
+    fontSize: 15,
+    color: '#444',
+    },
+    paymentOptionTextSelected: {
+        color: '#FF6B35',
+        fontWeight: '600',
+    },
+    paymentCheck: {
+        color: '#FF6B35',
+        fontWeight: '700',
+        fontSize: 16,
     },
 });
