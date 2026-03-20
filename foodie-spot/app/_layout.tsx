@@ -34,7 +34,7 @@ function RootLayoutContent() {
     if (isLoading) return;
 
     const firstSegment = segments[0];
-    const protectedRoutes = ['(tabs)', 'cart', 'checkout', 'restaurant', 'dish', 'tracking', 'review'];
+    const protectedRoutes = ['(tabs)', 'cart', 'checkout', 'restaurant', 'dish', 'tracking', 'review', 'favorites', 'addresses'];
     const isProtectedRoute = protectedRoutes.some(route => firstSegment === route || firstSegment?.startsWith(route));
     const isAuthRoute = firstSegment === '(auth)' || firstSegment === 'login' || firstSegment === 'register';
 
@@ -105,6 +105,7 @@ function RootLayoutContent() {
         <Stack.Screen name="review/[orderId]" options={{ presentation: 'modal' }} />
         <Stack.Screen name="onboarding" options={{ animation: 'fade', gestureEnabled: false }} />
         <Stack.Screen name="addresses" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="favorites" options={{ animation: 'slide_from_right' }} />
       </Stack>
 
       <StatusBar style="auto" />

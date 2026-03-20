@@ -178,7 +178,7 @@ export default function ProfileScreen() {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('Favoris', 'Cette fonctionnalité arrive bientôt')}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => router.push('/favorites')}>
             <Heart size={20} color="#666" />
             <Text style={styles.menuText}>{t.myFavorites}</Text>
             <View style={styles.menuRight}>
