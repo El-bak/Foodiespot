@@ -7,6 +7,7 @@ import { useCart } from "@/contexts/cart-context";
 import { useAuth } from "@/contexts/auth-context";
 import api, { userAPI, orderAPI, } from "@/services/api";
 import { useLanguage } from '@/contexts/language-context';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function CheckoutScreen() {
     const { items, restaurantId, totalPrice, clearCart } = useCart();
@@ -14,7 +15,7 @@ export default function CheckoutScreen() {
     const [loading, setLoading] = useState(false);
 
     const deliveryFee = totalPrice >= 25 ? 0 : 2.99;
-
+    const { colors } = useTheme();
     const [defaultAddress, setDefaultAddress] = useState<any>(null);
     const [promoCode, setPromoCode] = useState('');
     const [promoResult, setPromoResult] = useState<{ discount: number; message: string } | null>(null);
@@ -109,20 +110,20 @@ export default function CheckoutScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
-            <View style={styles.header}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
+            <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
                 <TouchableOpacity onPress={() => router.back()}>
-                    <ArrowLeft size={24} color="#333" />
+                    <ArrowLeft size={24} color={colors.text} />
                 </TouchableOpacity>
-                <Text style={styles.title}>{t.confirmOrder}</Text>
+                <Text style={[styles.title, { color: colors.text }]}>{t.confirmOrder}</Text>
                 <View style={{ width: 24 }} />
             </View>
 
             <ScrollView contentContainerStyle={styles.content}>
 
                 
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>{t.deliveryAddress}</Text>
+            <View style={[styles.section, { backgroundColor: colors.card }]}>
+                <Text style={[styles.sectionTitle, { color: colors.text }]}>{t.deliveryAddress}</Text>
 
                 {addresses.length === 0 ? (
                     <Text style={styles.noAddress}>
@@ -146,14 +147,14 @@ export default function CheckoutScreen() {
             </View>
 
                 
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>{t.summary}</Text>
+                <View style={[styles.section, { backgroundColor: colors.card }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.text }]}>{t.summary}</Text>
                     {items.map(item => (
                         <View key={item.dish.id} style={styles.orderItem}>
-                            <Text style={styles.orderItemName}>
+                            <Text style={[styles.orderItemName, { color: colors.textSecondary }]}>
                                 {item.quantity}x {item.dish.name}
                             </Text>
-                            <Text style={styles.orderItemPrice}>
+                            <Text style={[styles.orderItemPrice, { color: colors.text }]}>
                                 {(item.dish.price * item.quantity).toFixed(2)} €
                             </Text>
                         </View>
@@ -161,11 +162,11 @@ export default function CheckoutScreen() {
                 </View>
                 
                 {/* code promo */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>{t.promoCode}</Text>
+                <View style={[styles.section, { backgroundColor: colors.card }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.text }]}>{t.promoCode}</Text>
                     <View style={styles.promoRow}>
                         <TextInput
-                            style={styles.promoInput}
+                            style={[styles.promoInput, { backgroundColor: colors.inputBg, color: colors.text }]}
                             placeholder="Entrez votre code"
                             value={promoCode}
                             onChangeText={(text) => {
@@ -196,8 +197,8 @@ export default function CheckoutScreen() {
                 </View>
 
                 {/* mode de paiement */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>{t.paymentMethod}</Text>
+                <View style={[styles.section, { backgroundColor: colors.card }]}>
+                    <Text style={[styles.sectionTitle, { color: colors.text }]}>{t.paymentMethod}</Text>
                     {[
                         { key: 'card', label: '💳 Carte bancaire' },
                         { key: 'paypal', label: '🅿️ PayPal' },
@@ -206,13 +207,15 @@ export default function CheckoutScreen() {
                         <TouchableOpacity
                             key={method.key}
                             style={[
-                                styles.paymentOption,
+                                styles.paymentOption, 
+                                { backgroundColor: colors.inputBg, borderColor: colors.border },
                                 paymentMethod === method.key && styles.paymentOptionSelected
                             ]}
                             onPress={() => setPaymentMethod(method.key as any)}
                         >
                             <Text style={[
-                                styles.paymentOptionText,
+                                styles.paymentOptionText, 
+                                { color: colors.text },
                                 paymentMethod === method.key && styles.paymentOptionTextSelected
                             ]}>
                             {method.label}
@@ -225,13 +228,13 @@ export default function CheckoutScreen() {
                 </View>
 
                 {/* total */}
-                <View style={styles.section}>
+                <View style={[styles.section, { backgroundColor: colors.card }]}>
                     <View style={styles.totalRow}>
-                        <Text style={styles.totalLabel}>{t.subtotal}</Text>
+                        <Text style={[styles.totalLabel, { color: colors.textSecondary }]}>{t.subtotal}</Text>
                         <Text style={styles.totalValue}>{totalPrice.toFixed(2)} €</Text>
                     </View>
                     <View style={styles.totalRow}>
-                        <Text style={styles.totalLabel}>{t.delivery}</Text>
+                        <Text style={[styles.totalLabel, { color: colors.textSecondary }]}>{t.delivery}</Text>
                         <Text style={[styles.totalValue, deliveryFee === 0 && styles.free]}>
                             {deliveryFee === 0 ? t.freeDelivery : `${deliveryFee.toFixed(2)} €`}
                         </Text>
@@ -243,14 +246,14 @@ export default function CheckoutScreen() {
                         </View> 
                     )}
                     <View style={[styles.totalRow, styles.grandTotalRow]}>
-                        <Text style={styles.grandTotalLabel}>{t.total}</Text>
+                        <Text style={[styles.grandTotalLabel, { color: colors.text }]}>{t.total}</Text>
                         <Text style={styles.grandTotalValue}>{total.toFixed(2)} €</Text>
                     </View>
                 </View>
             </ScrollView>
 
             
-            <View style={styles.footer}>
+            <View style={[styles.footer, { backgroundColor: colors.card, borderTopColor: colors.border }]}>
                 <TouchableOpacity
                     style={[styles.confirmButton, loading && styles.confirmButtonDisabled]}
                     onPress={handleConfirmOrder}

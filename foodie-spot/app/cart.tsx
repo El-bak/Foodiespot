@@ -6,6 +6,7 @@ import { ArrowLeft, Minus, Plus, Trash2 } from "lucide-react-native";
 import { useCart } from "@/contexts/cart-context";
 import { CartItem } from "@/types";
 import { useLanguage } from '@/contexts/language-context';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function CartScreen() {
     const { items, removeItem, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
@@ -14,6 +15,7 @@ export default function CartScreen() {
     const deliveryFee = totalPrice >= 25 ? 0 : 2.99;
     const total = totalPrice + deliveryFee;
     const { t } = useLanguage();
+    const { colors } = useTheme();
 
     const handleClearCart = () => {
         Alert.alert(
@@ -27,14 +29,14 @@ export default function CartScreen() {
     };
 
     const renderItem = ({ item }: { item: CartItem }) => (
-        <View style={styles.item}>
+        <View style={[styles.item, { backgroundColor: colors.card }]}>
             <View style={styles.itemInfo}>
-                <Text style={styles.itemName}>{item.dish.name}</Text>
+                <Text style={[styles.itemName, { color: colors.text }]}>{item.dish.name}</Text>
                 <Text style={styles.itemPrice}>{(item.dish.price * item.quantity).toFixed(2)} €</Text>
             </View>
             <View style={styles.itemControls}>
                 <TouchableOpacity
-                    style={styles.qtyBtn}
+                    style={[styles.qtyBtn, { backgroundColor: colors.inputBg }]}
                     onPress={() => updateQuantity(item.dish.id, item.quantity - 1)}
                 >
                     {item.quantity === 1
@@ -42,9 +44,9 @@ export default function CartScreen() {
                         : <Minus size={14} color="#333" />
                     }
                 </TouchableOpacity>
-                <Text style={styles.qtyText}>{item.quantity}</Text>
+                <Text style={[styles.qtyText, { color: colors.text }]}>{item.quantity}</Text>
                 <TouchableOpacity
-                    style={styles.qtyBtn}
+                    style={[styles.qtyBtn, { backgroundColor: colors.inputBg }]}
                     onPress={() => updateQuantity(item.dish.id, item.quantity + 1)}
                 >
                     <Plus size={14} color="#333" />
@@ -54,13 +56,13 @@ export default function CartScreen() {
     );
 
     return (
-        <SafeAreaView style={styles.container} edges={['top']}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
             
-            <View style={styles.header}>
+            <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
                 <TouchableOpacity onPress={() => router.back()}>
-                    <ArrowLeft size={24} color="#333" />
+                    <ArrowLeft size={24} color={colors.text} />
                 </TouchableOpacity>
-                <Text style={styles.title}>Mon panier ({totalItems})</Text>
+                <Text style={[styles.title, { color: colors.text }]}>Mon panier ({totalItems})</Text>
                 {items.length > 0 && (
                     <TouchableOpacity onPress={handleClearCart}>
                         <Trash2 size={20} color="#FF6B35" />
@@ -73,7 +75,7 @@ export default function CartScreen() {
                 // panier vide
                 <View style={styles.emptyState}>
                     <Text style={styles.emptyIcon}>🛒</Text>
-                    <Text style={styles.emptyText}>Votre panier est vide</Text>
+                    <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Votre panier est vide</Text>
                     <TouchableOpacity
                         style={styles.browseButton}
                         onPress={() => router.replace('/(tabs)')}
@@ -91,10 +93,10 @@ export default function CartScreen() {
                     />
 
                     {/* Cela c'est pour le résumé de la commande */}
-                    <View style={styles.summary}>
+                    <View style={[styles.summary, { backgroundColor: colors.card, borderTopColor: colors.border }]}>
                         <View style={styles.summaryRow}>
-                            <Text style={styles.summaryLabel}>{t.subtotal}</Text>
-                            <Text style={styles.summaryValue}>{totalPrice.toFixed(2)} €</Text>
+                            <Text style={[styles.summaryLabel, { color: colors.textSecondary }]}>{t.subtotal}</Text>
+                            <Text style={[styles.summaryValue, { color: colors.text }]}>{totalPrice.toFixed(2)} €</Text>
                         </View>
                         <View style={styles.summaryRow}>
                             <Text style={styles.summaryLabel}>{t.delivery}</Text>
@@ -108,7 +110,7 @@ export default function CartScreen() {
                             </Text>
                         )}
                         <View style={[styles.summaryRow, styles.totalRow]}>
-                            <Text style={styles.totalLabel}>{t.total}</Text>
+                            <Text style={[styles.totalLabel, { color: colors.text }]}>{t.total}</Text>
                             <Text style={styles.totalValue}>{total.toFixed(2)} €</Text>
                         </View>
 

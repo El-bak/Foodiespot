@@ -19,9 +19,12 @@ export default function RegisterScreen() {
   const [localError, setLocalError] = useState('');
 
   const handleRegister = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!firstName.trim()) { setLocalError('Veuillez entrer votre prénom'); return; }
     if (!lastName.trim()) { setLocalError('Veuillez entrer votre nom'); return; }
-    if (!email.includes('@')) { setLocalError('Email invalide'); return; }
+    if (!email.trim()) { setLocalError('Veuillez entrer votre email'); return; }
+    if (!emailRegex.test(email)) { setLocalError('Format email invalide'); return; }
     if (password.length < 6) { setLocalError('Mot de passe trop court (min 6)'); return; }
     if (password !== confirmPassword) { setLocalError('Mots de passe différents'); return; }
 

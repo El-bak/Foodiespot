@@ -14,19 +14,22 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [localError, setLocalError] = useState('');
-
   const handleLogin = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!email.trim()) { setLocalError('Veuillez entrer votre email'); return; }
-    if (!email.includes('@')) { setLocalError('Email invalide'); return; }
+    if (!emailRegex.test(email)) { setLocalError('Format email invalide'); return;}
     if (!password) { setLocalError('Veuillez entrer votre mot de passe'); return; }
+    if (!password) { setLocalError('Veuillez entrer votre mot de passe'); return; }
+    if (password.length < 6) { setLocalError('Le mot de passe doit contenir au moins 6 caractères'); return; }
 
     setLocalError('');
     try {
-      await login({ email: email.trim(), password });
+        await login({ email: email.trim(), password });
     } catch (err) {
-      console.log('Login error handled');
+        console.log('Login error handled');
     }
-  };
+};
 
   const displayError = localError || error;
 
