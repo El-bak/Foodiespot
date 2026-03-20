@@ -39,12 +39,29 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response && error.response.status === 401) {
-            // clear both storage locations on unauthorized
-            await storage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+
+        const originalRequest = error.config;
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+
             try {
+                const refreshToken = await auth.getRefreshToken();
+                if (!refreshToken) throw new Error('No refresh token');
+
+                // on demande un nouveau token
+                const response = await axios.post(`${config.API_URL}/auth/refresh`, { refreshToken });
+                const { accessToken } = response.data.data;
+
+                // on sauvegarde et on relance la requête
+                await auth.setAccessToken(accessToken);
+                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                return api(originalRequest);
+
+            } catch {
+                // refresh échoué → déconnexion
                 await auth.clearTokens();
-            } catch {} // ignore
+                await storage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+            }
         }
         return Promise.reject(error);
     }
