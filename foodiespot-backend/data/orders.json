@@ -1548,5 +1548,109 @@
     "createdAt": "2026-03-19T23:44:59.203Z",
     "updatedAt": "2026-03-19T23:46:29.216Z",
     "actualDelivery": "2026-03-19T23:46:29.216Z"
+  },
+  {
+    "id": "b905eeaa-38f3-4297-97c7-10a1294bb7ec",
+    "orderNumber": "FS-64218705",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r1",
+    "restaurantName": "Bistro Parisien",
+    "restaurantImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "restaurantPhone": "+33 1 23 45 67 89",
+    "items": [
+      {
+        "menuItemId": "d1",
+        "quantity": 7,
+        "menuItem": {
+          "id": "d1",
+          "name": "Soupe à l'Oignon",
+          "description": "Soupe à l'oignon gratinée au fromage",
+          "price": 8.5,
+          "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=2071&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten",
+            "lait"
+          ]
+        },
+        "totalPrice": 59.5
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 59.5,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 60.49,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "7082c027-09d5-4e86-8542-770c466dc1d5",
+      "label": "Palace",
+      "street": "23 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:34:08.785Z"
+    },
+    "estimatedDelivery": "2026-03-20T00:30:18.705Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-19T23:50:18.705Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-19T23:50:28.710Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-19T23:50:38.719Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-19T23:50:58.718Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-19T23:51:08.720Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-19T23:51:18.709Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-19T23:51:48.717Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-19T23:50:18.705Z",
+    "updatedAt": "2026-03-19T23:51:48.717Z",
+    "actualDelivery": "2026-03-19T23:51:48.717Z"
   }
 ]

@@ -90,9 +90,11 @@ export default function CheckoutScreen() {
             });
             const result = response.data?.data;
 
-            
+            const discountAmount = typeof result.discount === 'number' ? result.discount : 0;
+            const isDeliveryFree = result.type === 'delivery';
+
             setPromoResult({
-                discount: result.discountAmount,
+                discount: isDeliveryFree ? 0 : discountAmount,
                 message: result.message || 'Code promo appliqué !',
             });
         } catch (error: any) {
@@ -187,7 +189,7 @@ export default function CheckoutScreen() {
                     )}
                     {promoResult && (
                         <Text style={styles.promoSuccess}>
-                               {promoResult.message} (-{promoResult.discount.toFixed(2)} €)
+                               {promoResult.message} {promoResult.discount > 0 ? ` (-${promoResult.discount.toFixed(2)} €)` : ''}
                         </Text>
                     )}
                 </View>
