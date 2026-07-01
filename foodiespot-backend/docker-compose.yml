@@ -1,0 +1,40 @@
+services:
+  foodiespot-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: foodiespot-backend:latest
+    container_name: foodiespot-backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - DATA_DIR=./data
+      - UPLOADS_DIR=./uploads
+      - JWT_SECRET=${JWT_SECRET:-foodiespot-super-secret-jwt-key-change-in-production}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-foodiespot-super-secret-refresh-key-change-in-production}
+      - ACCESS_TOKEN_EXPIRY=${ACCESS_TOKEN_EXPIRY:-1h}
+      - REFRESH_TOKEN_EXPIRY=${REFRESH_TOKEN_EXPIRY:-7d}
+    volumes:
+      # Persistance des données JSON et des fichiers uploadés en dehors du conteneur
+      - foodiespot-data:/app/data
+      - foodiespot-uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - cicd-network
+
+networks:
+  cicd-network:
+    driver: bridge
+    name: cicd-network
+
+volumes:
+  foodiespot-data:
+  foodiespot-uploads:
