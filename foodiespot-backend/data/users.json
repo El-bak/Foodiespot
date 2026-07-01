@@ -226,5 +226,174 @@
       "language": "fr"
     },
     "createdAt": "2026-03-19T15:59:02.812Z"
+  },
+  {
+    "id": "8096f828-909b-4f04-b5dd-a7b07c8daee0",
+    "email": "elbakyanis@gmal.com",
+    "firstName": "elbakyanis",
+    "lastName": "Demo",
+    "phone": "",
+    "avatar": "",
+    "addresses": [
+      {
+        "id": "9ea1b54c-9fd8-40b1-9cc2-0072ec8335a0",
+        "label": "Maison",
+        "street": "123 Rue de Paris",
+        "city": "Paris",
+        "postalCode": "75001",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": true
+      }
+    ],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-03-20T15:15:42.488Z",
+    "password": "Mikaze?12"
+  },
+  {
+    "id": "e25cc2cf-8521-4556-9602-2b4031d36e4c",
+    "email": "malykajag@gmal.com",
+    "password": "mikatdo27",
+    "firstName": "Moulai",
+    "lastName": "Kalaf",
+    "phone": "",
+    "avatar": "",
+    "addresses": [],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-03-20T15:17:48.518Z"
+  },
+  {
+    "id": "8c3c973c-6340-4385-bfe5-2ec9b098727a",
+    "email": "bafo@gmail.com",
+    "firstName": "bafo",
+    "lastName": "Demo",
+    "phone": "",
+    "avatar": "",
+    "addresses": [
+      {
+        "id": "ac0f643d-fd1e-40d6-9b7a-a73e64e8257e",
+        "label": "Maison",
+        "street": "123 Rue de Paris",
+        "city": "Paris",
+        "postalCode": "75001",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": true
+      }
+    ],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-03-20T15:25:23.708Z",
+    "password": "abdelhakim"
+  },
+  {
+    "id": "e0e10760-8c45-4bec-bd69-b3dc11e82437",
+    "email": "ymnal@gmail.com",
+    "firstName": "ymnal",
+    "lastName": "Demo",
+    "phone": "",
+    "avatar": "",
+    "addresses": [
+      {
+        "id": "bb349cc5-de0b-453b-a99d-75a0542856d0",
+        "label": "Maison",
+        "street": "123 Rue de Paris",
+        "city": "Paris",
+        "postalCode": "75001",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": true
+      }
+    ],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-03-20T15:54:21.201Z",
+    "password": "Minaruto_!47"
+  },
+  {
+    "id": "5ed91e1d-2725-4241-8974-abe08a123fdc",
+    "email": "elbak@glail.com",
+    "firstName": "elbak",
+    "lastName": "Demo",
+    "phone": "",
+    "avatar": "",
+    "addresses": [
+      {
+        "id": "7e6f955f-fdac-4e58-9350-5b10bc094216",
+        "label": "Maison",
+        "street": "123 Rue de Paris",
+        "city": "Paris",
+        "postalCode": "75001",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": true
+      },
+      {
+        "id": "9d491619-acc3-4855-b922-23d656367b8a",
+        "label": "Maison",
+        "street": "34 rue de maldive",
+        "city": "Marseille",
+        "postalCode": "74009",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": false,
+        "createdAt": "2026-03-20T18:15:18.974Z"
+      }
+    ],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-03-20T18:14:43.074Z",
+    "password": "jjdheidbei"
+  },
+  {
+    "id": "d1ced40c-189f-46a7-a580-6c637643a552",
+    "email": "greatemperormaddog@gmail.com",
+    "password": "feMtof-pyrkyz-myssy3",
+    "firstName": "Genshin",
+    "lastName": "Yamaoto",
+    "phone": "+33 7 63 92 69 41",
+    "avatar": "",
+    "addresses": [
+      {
+        "id": "55d484e2-ae27-4d53-9164-419cb4cf4738",
+        "label": "Batiment B",
+        "street": "45 rue des chars",
+        "city": "Paris",
+        "postalCode": "75009",
+        "country": "France",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "isDefault": false,
+        "createdAt": "2026-07-01T20:00:43.455Z"
+      }
+    ],
+    "notificationsEnabled": true,
+    "preferences": {
+      "theme": "system",
+      "language": "fr"
+    },
+    "createdAt": "2026-07-01T19:30:33.839Z"
   }
 ]

@@ -1780,5 +1780,578 @@
     "createdAt": "2026-03-20T00:36:21.325Z",
     "updatedAt": "2026-03-20T00:37:51.328Z",
     "actualDelivery": "2026-03-20T00:37:51.328Z"
+  },
+  {
+    "id": "c40c1cff-bdf3-4f4a-b5f5-fedb771f655d",
+    "orderNumber": "FS-18146769",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r2",
+    "restaurantName": "Tokyo Roll",
+    "restaurantImage": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop",
+    "restaurantPhone": "+33 1 98 76 54 32",
+    "items": [
+      {
+        "menuItemId": "d13",
+        "quantity": 6,
+        "menuItem": {
+          "id": "d13",
+          "name": "Salade Wakame",
+          "description": "Salade d'algues marines, sauce sésame",
+          "price": 6.5,
+          "image": "https://images.unsplash.com/photo-1604908815774-0bcb28088e0a?q=80&w=2070&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": true,
+          "isSpicy": false,
+          "allergens": [
+            "sesame",
+            "soja"
+          ]
+        },
+        "totalPrice": 39
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 39,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 39.99,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "82a7eb62-bdd2-4e69-bfb0-ef422a3b144c",
+      "label": "Maison",
+      "street": "46 rue de python",
+      "city": "Nice",
+      "postalCode": "89012",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-19T19:02:07.977Z"
+    },
+    "estimatedDelivery": "2026-03-20T15:24:06.769Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-20T14:49:06.769Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-20T14:49:16.785Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-20T14:49:26.776Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-20T14:49:46.784Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-20T14:49:56.775Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-20T14:50:06.781Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-20T14:50:36.784Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-20T14:49:06.769Z",
+    "updatedAt": "2026-03-20T14:50:36.784Z",
+    "actualDelivery": "2026-03-20T14:50:36.784Z"
+  },
+  {
+    "id": "52499afe-14da-4835-bf47-e34575d57342",
+    "orderNumber": "FS-22116545",
+    "userId": "e0e10760-8c45-4bec-bd69-b3dc11e82437",
+    "restaurantId": "r6",
+    "restaurantName": "Green Bowl",
+    "restaurantImage": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800",
+    "restaurantPhone": "+33 1 45 87 32 10",
+    "items": [
+      {
+        "menuItemId": "gb1",
+        "quantity": 4,
+        "menuItem": {
+          "id": "gb1",
+          "name": "Buddha Bowl",
+          "description": "Quinoa, pois chiches, avocat, patate douce, kale, tahini",
+          "price": 13.9,
+          "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": true,
+          "isSpicy": false,
+          "allergens": [
+            "sesame"
+          ]
+        },
+        "totalPrice": 55.6
+      },
+      {
+        "menuItemId": "gb3",
+        "quantity": 3,
+        "menuItem": {
+          "id": "gb3",
+          "name": "Power Bowl",
+          "description": "Quinoa, poulet grillé, brocoli, avocat, graines de courge",
+          "price": 14.9,
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": true,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": []
+        },
+        "totalPrice": 44.7
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 100.30000000000001,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 101.29,
+    "paymentMethod": "applepay",
+    "deliveryAddress": {
+      "id": "bb349cc5-de0b-453b-a99d-75a0542856d0",
+      "label": "Maison",
+      "street": "123 Rue de Paris",
+      "city": "Paris",
+      "postalCode": "75001",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true
+    },
+    "estimatedDelivery": "2026-03-20T16:20:16.545Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-20T15:55:16.545Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-20T15:55:26.549Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-20T15:55:36.551Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-20T15:55:56.551Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-20T15:56:06.549Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-20T15:56:16.559Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-20T15:56:46.558Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-20T15:55:16.545Z",
+    "updatedAt": "2026-03-20T15:56:46.558Z",
+    "actualDelivery": "2026-03-20T15:56:46.558Z"
+  },
+  {
+    "id": "97577aa8-d63e-43a3-ab93-50b15711e328",
+    "orderNumber": "FS-25640667",
+    "userId": "e0e10760-8c45-4bec-bd69-b3dc11e82437",
+    "restaurantId": "r5",
+    "restaurantName": "Taco Loco",
+    "restaurantImage": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+    "restaurantPhone": "+33 1 43 26 78 90",
+    "items": [
+      {
+        "menuItemId": "t2",
+        "quantity": 2,
+        "menuItem": {
+          "id": "t2",
+          "name": "Tacos Carnitas (3 pcs)",
+          "description": "Porc effiloché confit, salsa verde, oignon",
+          "price": 10.9,
+          "image": "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten"
+          ]
+        },
+        "totalPrice": 21.8
+      },
+      {
+        "menuItemId": "t1",
+        "quantity": 1,
+        "menuItem": {
+          "id": "t1",
+          "name": "Tacos Al Pastor (3 pcs)",
+          "description": "Porc mariné, ananas, coriandre, oignon",
+          "price": 9.9,
+          "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten"
+          ]
+        },
+        "totalPrice": 9.9
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 31.700000000000003,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 32.690000000000005,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "bb349cc5-de0b-453b-a99d-75a0542856d0",
+      "label": "Maison",
+      "street": "123 Rue de Paris",
+      "city": "Paris",
+      "postalCode": "75001",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true
+    },
+    "estimatedDelivery": "2026-03-20T17:19:00.667Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-20T16:54:00.667Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-20T16:54:10.680Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-20T16:54:20.672Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-20T16:54:40.672Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-20T16:54:50.674Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-20T16:55:00.673Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-20T16:55:30.669Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-20T16:54:00.667Z",
+    "updatedAt": "2026-03-20T16:55:30.669Z",
+    "actualDelivery": "2026-03-20T16:55:30.669Z"
+  },
+  {
+    "id": "488d3134-f9a7-4fe1-b4cb-847807eab86a",
+    "orderNumber": "FS-26583191",
+    "userId": "b3c077da-4ab1-4c98-8a51-ede24012bedc",
+    "restaurantId": "r2",
+    "restaurantName": "Tokyo Roll",
+    "restaurantImage": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop",
+    "restaurantPhone": "+33 1 98 76 54 32",
+    "items": [
+      {
+        "menuItemId": "d12",
+        "quantity": 1,
+        "menuItem": {
+          "id": "d12",
+          "name": "Edamame",
+          "description": "Fèves de soja vapeur légèrement salées",
+          "price": 5,
+          "image": "https://images.unsplash.com/photo-1583933378650-4e4e3fbc8b0b?q=80&w=2070&auto=format&fit=crop",
+          "category": "Entrées",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": true,
+          "isSpicy": false,
+          "allergens": [
+            "soja"
+          ]
+        },
+        "totalPrice": 5
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 5,
+    "deliveryFee": 2.99,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 8.98,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "b5e8a292-182d-42fc-ac56-15eef582a40f",
+      "label": "Maison",
+      "street": "41 rue de trevise",
+      "city": "Paris",
+      "postalCode": "75009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": true,
+      "createdAt": "2026-03-19T15:59:39.970Z",
+      "updatedAt": "2026-03-19T15:59:41.400Z"
+    },
+    "estimatedDelivery": "2026-03-20T17:44:43.191Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-20T17:09:43.191Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-20T17:09:53.206Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-20T17:10:03.203Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-20T17:10:23.200Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-20T17:10:33.204Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-20T17:10:43.193Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-20T17:11:13.192Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-20T17:09:43.191Z",
+    "updatedAt": "2026-03-20T17:11:13.192Z",
+    "actualDelivery": "2026-03-20T17:11:13.192Z"
+  },
+  {
+    "id": "538f676c-a2a4-4646-b766-5e6cac7160f4",
+    "orderNumber": "FS-31779858",
+    "userId": "5ed91e1d-2725-4241-8974-abe08a123fdc",
+    "restaurantId": "r5",
+    "restaurantName": "Taco Loco",
+    "restaurantImage": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800",
+    "restaurantPhone": "+33 1 43 26 78 90",
+    "items": [
+      {
+        "menuItemId": "t1",
+        "quantity": 3,
+        "menuItem": {
+          "id": "t1",
+          "name": "Tacos Al Pastor (3 pcs)",
+          "description": "Porc mariné, ananas, coriandre, oignon",
+          "price": 9.9,
+          "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400",
+          "isAvailable": true,
+          "isPopular": true,
+          "isNew": false,
+          "isVegetarian": false,
+          "isVegan": false,
+          "isSpicy": false,
+          "allergens": [
+            "gluten"
+          ]
+        },
+        "totalPrice": 29.700000000000003
+      },
+      {
+        "menuItemId": "ts2",
+        "quantity": 4,
+        "menuItem": {
+          "id": "ts2",
+          "name": "Nachos Supreme",
+          "description": "Chips, fromage fondu, jalapeños, crème, salsa",
+          "price": 8.9,
+          "image": "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=400",
+          "isAvailable": true,
+          "isPopular": false,
+          "isNew": false,
+          "isVegetarian": true,
+          "isVegan": false,
+          "isSpicy": true,
+          "spicyLevel": 1,
+          "allergens": [
+            "lait"
+          ]
+        },
+        "totalPrice": 35.6
+      }
+    ],
+    "status": "delivered",
+    "subtotal": 65.30000000000001,
+    "deliveryFee": 0,
+    "serviceFee": 0.99,
+    "tip": 0,
+    "discount": 0,
+    "promoApplied": null,
+    "total": 66.29,
+    "paymentMethod": "card",
+    "deliveryAddress": {
+      "id": "9d491619-acc3-4855-b922-23d656367b8a",
+      "label": "Maison",
+      "street": "34 rue de maldive",
+      "city": "Marseille",
+      "postalCode": "74009",
+      "country": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "isDefault": false,
+      "createdAt": "2026-03-20T18:15:18.974Z"
+    },
+    "estimatedDelivery": "2026-03-20T19:01:19.858Z",
+    "driver": {
+      "id": "driver-001",
+      "name": "Thomas D.",
+      "phone": "+33 6 12 34 56 78",
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "vehicle": "Vélo électrique",
+      "rating": 4.8
+    },
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2026-03-20T18:36:19.858Z",
+        "message": "Commande reçue"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-03-20T18:36:29.873Z",
+        "message": "Commande confirmée par le restaurant"
+      },
+      {
+        "status": "preparing",
+        "timestamp": "2026-03-20T18:36:39.873Z",
+        "message": "Préparation en cours"
+      },
+      {
+        "status": "ready",
+        "timestamp": "2026-03-20T18:36:59.861Z",
+        "message": "Commande prête"
+      },
+      {
+        "status": "picked_up",
+        "timestamp": "2026-03-20T18:37:09.866Z",
+        "message": "Récupérée par le livreur"
+      },
+      {
+        "status": "delivering",
+        "timestamp": "2026-03-20T18:37:19.868Z",
+        "message": "En cours de livraison"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-03-20T18:37:49.866Z",
+        "message": "Livrée"
+      }
+    ],
+    "createdAt": "2026-03-20T18:36:19.858Z",
+    "updatedAt": "2026-03-20T18:37:49.866Z",
+    "actualDelivery": "2026-03-20T18:37:49.866Z"
   }
 ]
