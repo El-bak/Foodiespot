@@ -175,16 +175,18 @@ SCRIPT
             }
         }
 
-        // 9. Smoke Test
+       // 9. Smoke Test
         stage('Smoke Test') {
             steps {
-                sh "sleep 5"
-                sh """
+                sh '''
+                    sleep 5
+                    docker network connect cicd-network foodiespot-staging 2>/dev/null || true
+                    sleep 2
                     docker run --rm \
                       --network cicd-network \
                       curlimages/curl:latest \
                       curl -f http://foodiespot-staging:4000/health
-                """
+                '''
             }
         }
     }
