@@ -18,17 +18,20 @@ pipeline {
 
         // 1. Checkout
         stage('Checkout') {
-            steps {
-                checkout scm
-                script {
-                    env.GIT_SHA = sh(
-                        script: "git rev-parse --short HEAD",
-                        returnStdout: true
-                    ).trim()
-                }
-                echo "Commit SHA: ${env.GIT_SHA}"
-            }
+    steps {
+        checkout scm
+        script {
+            env.GIT_SHA = sh(
+                script: "git rev-parse --short HEAD",
+                returnStdout: true
+            ).trim()
         }
+        echo "Commit SHA: ${env.GIT_SHA}"
+        echo "GIT_BRANCH env var: ${env.GIT_BRANCH}"
+        sh "git rev-parse --abbrev-ref HEAD || true"
+        sh "printenv | grep -i git || true"
+    }
+}
 
         // 2. Lint
        // 2. Lint
@@ -137,14 +140,10 @@ SCRIPT
         }
 
         // 7. Push (branche devops-pipeline pour tests, main pour prod)
-       stage('Push to Registry') {
+        stage('Push to Registry') {
     when {
         expression {
-            def currentBranch = sh(
-                script: "git rev-parse --abbrev-ref HEAD",
-                returnStdout: true
-            ).trim()
-            return currentBranch == 'devops-pipeline'
+            return env.GIT_BRANCH == 'origin/devops-pipeline' || env.GIT_BRANCH == 'devops-pipeline'
         }
     }
     steps {
