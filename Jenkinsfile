@@ -66,7 +66,7 @@ pipeline {
         // 4. SonarQube Analysis
         stage('SonarQube Analysis') {
             environment {
-                SONARQUBE_TOKEN = credentials('sonar-token')
+                SONARQUBE_TOKEN = credentials('sonar-token-foodiespot')
             }
             steps {
                 withSonarQubeEnv('sonarqube') {
