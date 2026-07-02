@@ -163,6 +163,10 @@ SCRIPT
                 dir("${INFRA_DIR}") {
                     sh '''
                         terraform init -input=false
+                        NETWORK_ID=$(docker network inspect cicd-network --format "{{.Id}}" 2>/dev/null || true)
+                        if [ -n "$NETWORK_ID" ]; then
+                            terraform import docker_network.cicd_network $NETWORK_ID 2>/dev/null || true
+                        fi
                         terraform apply -input=false -auto-approve \
                           -var="image_name=foodiespot-backend:latest"
                         terraform output
