@@ -32,6 +32,8 @@ pipeline {
 
         // 2. Lint
        // 2. Lint
+        // 2. Lint
+       // 2. Lint
         stage('Lint') {
             steps {
                 sh '''
@@ -39,7 +41,10 @@ pipeline {
                       --volumes-from jenkins \
                       -w /var/jenkins_home/workspace/foodiespot-pipeline/foodiespot-backend \
                       node:22-alpine \
-                      sh -c "npm install --silent && npm run lint"
+                      sh << 'SCRIPT'
+npm install --silent
+npm run lint
+SCRIPT
                 '''
             }
         }
