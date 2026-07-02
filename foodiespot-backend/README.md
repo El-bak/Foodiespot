@@ -246,7 +246,7 @@ docker compose up -d
 ### Registre d'images
 
 Les images buildées par le pipeline sont publiées sur GitHub Container Registry :
-\`ghcr.io/el-bak/foodiespot-backend\` (tags par SHA de commit et `latest`).
+\`ghcr.io/el-bak/foodiespot-backend\` (https://github.com/El-bak/Foodiespot/pkgs/container/foodiespot-backend).
 
 
 ## 🎓 Pour les étudiants
