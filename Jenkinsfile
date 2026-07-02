@@ -60,11 +60,17 @@ SCRIPT
                                      ${APP_DIR}/
                     """
                     sh """
+                        docker build --target tester \
+                          -t ${IMAGE_NAME}:test \
+                          ${APP_DIR}/
+                    """
+                    sh """
                         docker run --rm \
                           -e CI=true \
+                          -e NODE_OPTIONS=--experimental-vm-modules \
                           --name test-runner \
-                          ${IMAGE_NAME}:${env.GIT_SHA} \
-                          sh -c "npm test -- --coverage --coverageReporters=lcov"
+                          ${IMAGE_NAME}:test \
+                          npx jest --coverage --coverageReporters=lcov
                     """
                     sh "docker cp test-runner:/app/coverage ./coverage 2>/dev/null || true"
                 }
@@ -75,6 +81,7 @@ SCRIPT
                 }
             }
         }
+    
 
         // 4. SonarQube Analysis
         stage('SonarQube Analysis') {
