@@ -177,6 +177,78 @@ ACCESS_TOKEN_EXPIRY=1h
 REFRESH_TOKEN_EXPIRY=7d
 ```
 
+## 🔄 Pipeline CI/CD
+
+Le projet dispose d'un pipeline Jenkins complet (`Jenkinsfile` à la racine du repo) qui automatise
+le build, les tests, l'analyse qualité, le scan de sécurité, la publication de l'image Docker et le
+déploiement en environnement de staging.
+
+### Vue d'ensemble — 9 stages
+
+| # | Stage | Outil | Ce qu'il fait |
+|---|-------|-------|----------------|
+| 1 | Checkout | Git | Clone le repo, récupère le SHA du commit |
+| 2 | Lint | ESLint | Vérifie le style et la syntaxe du code |
+| 3 | Build & Test | Docker + Jest | Build l'image (`--target runtime`), lance les tests avec coverage |
+| 4 | SonarQube Analysis | sonar-scanner | Envoie l'analyse de qualité de code à SonarQube |
+| 5 | Quality Gate | SonarQube | Bloque le pipeline si le Quality Gate est rouge |
+| 6 | Security Scan | Trivy | Scanne l'image pour les CVEs (HIGH/CRITICAL) |
+| 7 | Push to Registry | Docker | Publie l'image sur `ghcr.io/el-bak/foodiespot-backend` |
+| 8 | IaC Apply | Terraform | Provisionne/met à jour le conteneur de staging |
+| 9 | Smoke Test | curl | Vérifie que `/health` répond 200 sur l'environnement de staging |
+
+### Prérequis pour lancer le pipeline
+
+- Un agent Jenkins avec Docker, Terraform et accès au socket Docker (`/var/run/docker.sock`)
+- Un réseau Docker externe nommé `cicd-network` (partagé par l'app, Jenkins, SonarQube, Prometheus/Grafana)
+- Credentials configurés dans Jenkins :
+  - `sonar-token-foodiespot` — token d'authentification SonarQube
+  - `github-token` — token GitHub avec les scopes `repo`, `write:packages`, `read:packages` (pour push sur ghcr.io)
+- Un serveur SonarQube accessible, configuré dans Jenkins sous le nom `sonarqube`
+
+### Lancer le pipeline
+
+Le job Jenkins `foodiespot-pipeline` est configuré sur la branche `devops-pipeline`.
+
+1. Déclenchement manuel via l'interface Jenkins (bouton "Build Now"), ou automatique sur push
+2. Le pipeline build l'image, lance les tests, analyse la qualité et la sécurité du code
+3. Si tout est vert, l'image est poussée sur GHCR puis déployée en staging via Terraform
+4. Le staging est accessible sur `http://localhost:4001` une fois déployé
+
+### Infrastructure as Code (Terraform)
+
+Le dossier `infra/` contient la configuration Terraform (provider `kreuzwerker/docker`) qui provisionne
+le conteneur de staging `foodiespot-staging` sur le réseau `cicd-network`, port externe `4001`.
+
+\`\`\`bash
+cd infra
+terraform init
+terraform apply -var="image_name=foodiespot-backend:latest"
+terraform output   # affiche l'URL du staging
+\`\`\`
+
+### Monitoring (Prometheus + Grafana)
+
+L'application expose ses métriques sur `/metrics` (format Prometheus, via `prom-client`).
+Le dossier `monitoring/` contient la stack de supervision :
+
+\`\`\`bash
+cd monitoring
+docker compose up -d
+\`\`\`
+
+- Prometheus : http://localhost:9090 — cible `foodiespot-backend:4000/metrics`, vérifiable sur
+  http://localhost:9090/targets
+- Grafana : http://localhost:3001 (identifiants par défaut `admin` / `admin`) — dashboard
+  `FoodieSpot Monitoring` avec le statut du service et le taux de requêtes HTTP
+  (`rate(foodiespot_http_requests_total[5m])`)
+
+### Registre d'images
+
+Les images buildées par le pipeline sont publiées sur GitHub Container Registry :
+\`ghcr.io/el-bak/foodiespot-backend\` (tags par SHA de commit et `latest`).
+
+
 ## 🎓 Pour les étudiants
 
 Ce backend est conçu pour le cours React Native. Il simule:
