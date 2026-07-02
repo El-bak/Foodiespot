@@ -31,14 +31,14 @@ pipeline {
         }
 
         // 2. Lint
-        stage('Lint') {
+       stage('Lint') {
             steps {
                 sh """
                     docker run --rm \
-                      --volumes-from jenkins \
-                      -w /var/jenkins_home/workspace/foodiespot-pipeline/${APP_DIR} \
-                      node:22-alpine \
-                      sh -c "npm install --silent && npm run lint"
+                    --volumes-from jenkins \
+                    -w /var/jenkins_home/workspace/foodiespot-pipeline/${APP_DIR} \
+                    node:22-alpine \
+                    sh -c "npm install --silent && npm run lint"
                 """
             }
         }
