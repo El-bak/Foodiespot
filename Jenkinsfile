@@ -70,7 +70,7 @@ SCRIPT
                           -e NODE_OPTIONS=--experimental-vm-modules \
                           --name test-runner \
                           ${IMAGE_NAME}:test \
-                          npx jest --coverage --coverageReporters=lcov
+                          npx jest tests/ --coverage --coverageReporters=lcov
                     """
                     sh "docker cp test-runner:/app/coverage ./coverage 2>/dev/null || true"
                 }
