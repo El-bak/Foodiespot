@@ -55,7 +55,8 @@ SCRIPT
             steps {
                 script {
                     sh """
-                        docker build -t ${IMAGE_NAME}:${env.GIT_SHA} \
+                        docker build --target runtime \
+                                     -t ${IMAGE_NAME}:${env.GIT_SHA} \
                                      -t ${IMAGE_NAME}:latest \
                                      ${APP_DIR}/
                     """
@@ -180,12 +181,10 @@ SCRIPT
             steps {
                 sh '''
                     sleep 5
-                    docker network connect cicd-network foodiespot-staging 2>/dev/null || true
-                    sleep 2
                     docker run --rm \
-                      --network cicd-network \
-                      curlimages/curl:latest \
-                      curl -f http://foodiespot-staging:4000/health
+                        --network cicd-network \
+                        curlimages/curl:latest \
+                        curl -f http://foodiespot-staging:4000/health
                 '''
             }
         }

@@ -32,8 +32,7 @@ services:
 
 networks:
   cicd-network:
-    driver: bridge
-    name: cicd-network
+    external: true
 
 volumes:
   foodiespot-data:

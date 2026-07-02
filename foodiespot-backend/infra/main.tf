@@ -25,8 +25,9 @@ resource "docker_image" "foodiespot" {
 }
 
 resource "docker_container" "foodiespot_staging" {
-  name  = "foodiespot-staging"
-  image = docker_image.foodiespot.image_id
+  name         = "foodiespot-staging"
+  image        = docker_image.foodiespot.image_id
+  network_mode = "cicd-network"   
 
   ports {
     internal = 4000
