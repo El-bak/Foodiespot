@@ -160,19 +160,13 @@ SCRIPT
         // 8. IaC Apply
         stage('IaC Apply') {
             steps {
-                sh """
-                    docker exec jenkins terraform --version || \
-                    wget -q https://releases.hashicorp.com/terraform/1.7.0/terraform_1.7.0_linux_amd64.zip \
-                      -O /tmp/terraform.zip && \
-                    unzip -q /tmp/terraform.zip -d /usr/local/bin/
-                """
                 dir("${INFRA_DIR}") {
-                    sh """
+                    sh '''
                         terraform init -input=false
                         terraform apply -input=false -auto-approve \
-                          -var="image_name=${IMAGE_NAME}:${env.GIT_SHA}"
+                          -var="image_name=foodiespot-backend:latest"
                         terraform output
-                    """
+                    '''
                 }
             }
         }
