@@ -50,6 +50,7 @@ SCRIPT
         }
 
         // 3. Build & Test
+        // 3. Build & Test
         stage('Build & Test') {
             steps {
                 script {
@@ -60,11 +61,17 @@ SCRIPT
                     """
                     sh """
                         docker run --rm \
-                          --volumes-from jenkins \
-                          -w /var/jenkins_home/workspace/foodiespot-pipeline/${APP_DIR} \
+                          -e CI=true \
+                          --name test-runner \
                           ${IMAGE_NAME}:${env.GIT_SHA} \
                           sh -c "npm test -- --coverage --coverageReporters=lcov"
                     """
+                    sh "docker cp test-runner:/app/coverage ./coverage 2>/dev/null || true"
+                }
+            }
+            post {
+                always {
+                    sh "docker rm -f test-runner 2>/dev/null || true"
                 }
             }
         }
