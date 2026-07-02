@@ -137,26 +137,32 @@ SCRIPT
         }
 
         // 7. Push (branche devops-pipeline pour tests, main pour prod)
-        stage('Push to Registry') {
-            when {
-                branch 'devops-pipeline'
-            }
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'github-token',
-                    usernameVariable: 'GHCR_USER',
-                    passwordVariable: 'GHCR_TOKEN'
-                )]) {
-                    sh """
-                        echo "\$GHCR_TOKEN" | docker login ghcr.io -u "\$GHCR_USER" --password-stdin
-                        docker tag ${IMAGE_NAME}:${env.GIT_SHA} ${REGISTRY}:${env.GIT_SHA}
-                        docker tag ${IMAGE_NAME}:${env.GIT_SHA} ${REGISTRY}:latest
-                        docker push ${REGISTRY}:${env.GIT_SHA}
-                        docker push ${REGISTRY}:latest
-                    """
-                }
-            }
+       stage('Push to Registry') {
+    when {
+        expression {
+            def currentBranch = sh(
+                script: "git rev-parse --abbrev-ref HEAD",
+                returnStdout: true
+            ).trim()
+            return currentBranch == 'devops-pipeline'
         }
+    }
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'github-token',
+            usernameVariable: 'GHCR_USER',
+            passwordVariable: 'GHCR_TOKEN'
+        )]) {
+            sh """
+                echo "\$GHCR_TOKEN" | docker login ghcr.io -u "\$GHCR_USER" --password-stdin
+                docker tag ${IMAGE_NAME}:${env.GIT_SHA} ${REGISTRY}:${env.GIT_SHA}
+                docker tag ${IMAGE_NAME}:${env.GIT_SHA} ${REGISTRY}:latest
+                docker push ${REGISTRY}:${env.GIT_SHA}
+                docker push ${REGISTRY}:latest
+            """
+        }
+    }
+}
 
         // 8. IaC Apply
         stage('IaC Apply') {
