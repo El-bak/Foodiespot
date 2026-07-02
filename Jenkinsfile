@@ -143,7 +143,7 @@ SCRIPT
         stage('Push to Registry') {
     when {
         expression {
-            return env.GIT_BRANCH == 'origin/devops-pipeline' || env.GIT_BRANCH == 'devops-pipeline'
+            return true
         }
     }
     steps {
